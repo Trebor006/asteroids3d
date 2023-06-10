@@ -32,7 +32,12 @@ public class Asteroids3D extends ApplicationAdapter {
     camController = new CameraInputController(cam); // Inicialización del controlador de la cámara
 
     ObjLoader loader = new ObjLoader();
-    model = loader.loadModel(Gdx.files.internal("naveEspacial.obj"));
+//    model = loader.loadModel(Gdx.files.internal("naves/Defiant/defiant.obj"));
+//    model = loader.loadModel(Gdx.files.internal("naves/Constellation/Constellation.obj"));
+    model = loader.loadModel(Gdx.files.internal("naves/NeghVarclass/neghvar.obj"));
+//    model = loader.loadModel(Gdx.files.internal("naves/PrometheusNX59650/prometheus.obj"));
+//    model = loader.loadModel(Gdx.files.internal("naves/SaberClass/saberncc61947.obj"));
+//    model = loader.loadModel(Gdx.files.internal("naves/VoyagerNCC74656/voyager.obj"));
     instance = new ModelInstance(model);
 
     Gdx.input.setInputProcessor(new MyInputProcessor(instance)); // Input processor here
