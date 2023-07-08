@@ -10,21 +10,17 @@ import com.mibu.asteroids3d.controller.SpaceshipController;
 import com.mibu.asteroids3d.util.AssetManagerUtil;
 import com.mibu.asteroids3d.util.CameraUtil;
 import com.mibu.asteroids3d.util.Movements;
-import com.mibu.asteroids3d.util.ProjectilUtil;
 
 public class Spaceship extends Actor {
     private static final float DELTA_DEGREE = 0.00001f;
     private ModelInstance model;
     private boolean[] states;
-    private Projectil[] projectiles;
     private SpaceshipController stateNaveController;
     private Vector3 position;
 
     public Spaceship() {
         model = new ModelInstance(AssetManagerUtil.getAssetManager().get(SpaceshipAssets.getDefault(), Model.class));
         states = new boolean[Movements.values().length];
-
-        projectiles = new Projectil[ProjectilUtil.MAX_PROYECTILES];
 
         position = new Vector3(0, 0, 0);
 
