@@ -1,45 +1,40 @@
-package com.mibu.asteroids3d.actor;
+package com.mibu.asteroids3d.objects;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.mibu.asteroids3d.assets.SpaceshipAssets;
-import com.mibu.asteroids3d.controller.SpaceshipStateController;
+import com.mibu.asteroids3d.controller.SpaceshipController;
+import com.mibu.asteroids3d.util.AssetManagerUtil;
+import com.mibu.asteroids3d.util.CameraUtil;
 import com.mibu.asteroids3d.util.Movements;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import com.mibu.asteroids3d.util.ProjectilUtil;
 
 public class Spaceship extends Actor {
     private static final float DELTA_DEGREE = 0.00001f;
     private ModelInstance model;
-    private Map<Movements, Boolean> state;
-    private List<Projectil> projectiles;
-    private SpaceshipStateController stateNaveController;
+    private boolean[] states;
+    private Projectil[] projectiles;
+    private SpaceshipController stateNaveController;
     private Vector3 position;
 
-    public Spaceship(AssetManager assetManager) {
-        super(assetManager);
-        model = new ModelInstance(assetManager.get(SpaceshipAssets.getDefault(), Model.class));
-        state = new ConcurrentHashMap<>();
+    public Spaceship() {
+        model = new ModelInstance(AssetManagerUtil.getAssetManager().get(SpaceshipAssets.getDefault(), Model.class));
+        states = new boolean[Movements.values().length];
 
-        projectiles = new ArrayList<>();
+        projectiles = new Projectil[ProjectilUtil.MAX_PROYECTILES];
 
         position = new Vector3(0, 0, 0);
 
-        stateNaveController = new SpaceshipStateController(this, state);
+        stateNaveController = new SpaceshipController(this, states);
         stateNaveController.start();
 
         Matrix4 transform = model.transform;
         transform.getTranslation(position);
         transform.setToRotation(0, 1, 0, 180);
-        transform.scale(0.5f, 0.5f, 0.5f);
+        transform.scale(0.4f, 0.4f, 0.4f);
 
         position.x = 0f;
         position.y = -4f;
@@ -49,22 +44,18 @@ public class Spaceship extends Actor {
     }
 
     @Override
-    protected void act(float delta) {
+    public void act(float delta) {
     }
 
     @Override
-    protected void draw(ModelBatch batch, PerspectiveCamera camera) {
-        batch.begin(camera);
+    public void draw(ModelBatch batch) {
+        batch.begin(CameraUtil.getCamera());
         batch.render(model);
         batch.end();
     }
 
     public void changeValue(Movements motion) {
-        if (!state.containsKey(motion)) {
-            state.put(motion, Boolean.TRUE);
-        } else {
-            state.put(motion, !state.get(motion));
-        }
+        states[motion.ordinal()] = !states[motion.ordinal()];
     }
 
     public void translate(float x, float y, float z) {
@@ -89,6 +80,6 @@ public class Spaceship extends Actor {
     }
 
     public void shoot() {
-        projectiles.add(Projectil.createNew(position));
+//        projectiles.add(Projectil.createNew(position));
     }
 }

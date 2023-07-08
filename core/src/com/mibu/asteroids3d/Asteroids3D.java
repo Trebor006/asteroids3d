@@ -10,11 +10,6 @@ import com.mibu.asteroids3d.util.AssetManagerUtil;
 public class Asteroids3D extends Game {
 
     public Asteroids3D() {
-        AssetManagerUtil.initAsset();
-        loadAssets();
-    }
-
-    public void loadAssets() {
         AssetManagerUtil.getAssetManager()
                 .load(SpaceshipAssets.getDefault(), Model.class);
     }

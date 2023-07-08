@@ -3,10 +3,9 @@ package com.mibu.asteroids3d.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.mibu.asteroids3d.Asteroids3D;
-import com.mibu.asteroids3d.actor.Spaceship;
-import com.mibu.asteroids3d.actor.Stage;
 import com.mibu.asteroids3d.controller.KeyController;
-import com.mibu.asteroids3d.util.AssetManagerUtil;
+import com.mibu.asteroids3d.objects.Spaceship;
+import com.mibu.asteroids3d.objects.Stage;
 
 public class GameScreen extends BaseScreen {
     private Stage stage;
@@ -17,8 +16,7 @@ public class GameScreen extends BaseScreen {
         this.stage = new Stage();
         this.inputController = new KeyController();
 
-
-        Spaceship naveActor = new Spaceship(AssetManagerUtil.getAssetManager());
+        Spaceship naveActor = new Spaceship();
         stage.addActor(naveActor);
 
         inputController.setSpaceship(naveActor);

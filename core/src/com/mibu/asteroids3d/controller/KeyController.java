@@ -2,7 +2,7 @@ package com.mibu.asteroids3d.controller;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.mibu.asteroids3d.actor.Spaceship;
+import com.mibu.asteroids3d.objects.Spaceship;
 import com.mibu.asteroids3d.util.Movements;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -29,6 +29,12 @@ public class KeyController extends InputAdapter {
                 break;
             case Keys.RIGHT:
                 spaceship.changeValue(Movements.RIGHT);
+                break;
+            case Keys.A:
+                spaceship.changeValue(Movements.LEFT_MOVE);
+                break;
+            case Keys.D:
+                spaceship.changeValue(Movements.RIGHT_MOVE);
                 break;
             case Keys.W:
                 spaceship.changeValue(Movements.FRONT);
@@ -72,6 +78,12 @@ public class KeyController extends InputAdapter {
                 break;
             case Keys.S:
                 spaceship.changeValue(Movements.BACK);
+                break;
+            case Keys.A:
+                spaceship.changeValue(Movements.LEFT_MOVE);
+                break;
+            case Keys.D:
+                spaceship.changeValue(Movements.RIGHT_MOVE);
                 break;
 
         }
