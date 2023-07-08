@@ -17,7 +17,7 @@ public class Asteroids3D extends Game {
     @Override
     public void create() {
         AssetManagerUtil.getAssetManager().finishLoading();
-        setScreen(new GameScreen(this));
+        setScreen(new GameScreen());
     }
 
     @Override
