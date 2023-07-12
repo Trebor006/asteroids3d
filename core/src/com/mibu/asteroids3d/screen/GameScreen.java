@@ -2,6 +2,11 @@ package com.mibu.asteroids3d.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g3d.Environment;
+import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
+import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
+import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.mibu.asteroids3d.controller.KeyController;
 import com.mibu.asteroids3d.objects.Spaceship;
 import com.mibu.asteroids3d.objects.Stage;
@@ -10,6 +15,10 @@ import com.mibu.asteroids3d.util.CameraUtil;
 public class GameScreen extends BaseScreen {
     private Stage stage;
     private KeyController inputController;
+
+//    CameraInputController camController;
+//    ModelBatch modelBatch;
+    Environment environment;
 
     public GameScreen() {
         this.stage = new Stage();
@@ -21,6 +30,10 @@ public class GameScreen extends BaseScreen {
         inputController.setSpaceship(naveActor);
 
         Gdx.input.setInputProcessor(inputController);
+
+        environment = new Environment();
+        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
+        environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
     }
 
     @Override

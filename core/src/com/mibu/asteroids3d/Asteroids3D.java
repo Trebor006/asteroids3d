@@ -3,6 +3,7 @@ package com.mibu.asteroids3d;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.physics.bullet.Bullet;
 import com.mibu.asteroids3d.assets.SpaceshipAssets;
 import com.mibu.asteroids3d.screen.GameScreen;
 import com.mibu.asteroids3d.util.AssetManagerUtil;
@@ -18,6 +19,7 @@ public class Asteroids3D extends Game {
     public void create() {
         AssetManagerUtil.getAssetManager().finishLoading();
         setScreen(new GameScreen());
+        Bullet.init();
     }
 
     @Override

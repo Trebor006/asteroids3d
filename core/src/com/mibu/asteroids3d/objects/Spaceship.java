@@ -11,11 +11,15 @@ import com.mibu.asteroids3d.util.AssetManagerUtil;
 import com.mibu.asteroids3d.util.CameraUtil;
 import com.mibu.asteroids3d.util.Movements;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Spaceship extends Actor {
     private static final float DELTA_DEGREE = 0.00001f;
     private ModelInstance model;
     private boolean[] states;
     private SpaceshipController stateNaveController;
+    private SpaceshipBullet spaceshipBullet;
     private Vector3 position;
 
     public Spaceship() {
@@ -26,6 +30,8 @@ public class Spaceship extends Actor {
 
         stateNaveController = new SpaceshipController(this, states);
         stateNaveController.start();
+
+        spaceshipBullet = new SpaceshipBullet();
 
         Matrix4 transform = model.transform;
         transform.getTranslation(position);
@@ -48,10 +54,13 @@ public class Spaceship extends Actor {
         batch.begin(CameraUtil.getCamera());
         batch.render(model);
         batch.end();
+
+        spaceshipBullet.draw(batch);
     }
 
     public void changeValue(Movements motion) {
         states[motion.ordinal()] = !states[motion.ordinal()];
+        System.out.println(motion.name() + " :" + states[motion.ordinal()]);
     }
 
     public void translate(float x, float y, float z) {
@@ -76,6 +85,6 @@ public class Spaceship extends Actor {
     }
 
     public void shoot() {
-//        projectiles.add(Projectil.createNew(position));
+        spaceshipBullet.createNew();
     }
 }

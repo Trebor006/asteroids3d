@@ -19,6 +19,7 @@ public class DesktopLauncher {
         config.setWindowedMode(screenWidth, screenHeight);
         config.setMaximized(true);
 
-        new Lwjgl3Application(new Asteroids3D(), config);
+//        new Lwjgl3Application(new Asteroids3D(), config);
+        new Lwjgl3Application(new BulletTest(), config);
     }
 }
