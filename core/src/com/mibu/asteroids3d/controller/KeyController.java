@@ -18,28 +18,29 @@ public class KeyController extends InputAdapter {
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {
-            case Keys.UP:
-                spaceship.changeValue(Movements.UP);
-                break;
-            case Keys.DOWN:
-                spaceship.changeValue(Movements.DOWN);
-                break;
+//            case Keys.UP:
+//                spaceship.changeValue(Movements.UP);
+//                break;
+//            case Keys.DOWN:
+//                spaceship.changeValue(Movements.DOWN);
+//                break;
             case Keys.LEFT:
+            case Keys.A:
                 spaceship.changeValue(Movements.LEFT);
                 break;
             case Keys.RIGHT:
+            case Keys.D:
                 spaceship.changeValue(Movements.RIGHT);
                 break;
-            case Keys.W:
-                spaceship.changeValue(Movements.FRONT);
-                break;
-            case Keys.S:
-                spaceship.changeValue(Movements.BACK);
-                break;
-
-            case Keys.SPACE:
-                spaceship.shoot();
-                break;
+//            case Keys.W:
+//                spaceship.changeValue(Movements.FRONT);
+//                break;
+//            case Keys.S:
+//                spaceship.changeValue(Movements.BACK);
+//                break;
+//            case Keys.SPACE:
+//                spaceship.shoot();
+//                break;
 
 //            case Keys.E:
 //                spaceship.changeValue(Movements.BACK);
@@ -55,23 +56,28 @@ public class KeyController extends InputAdapter {
     @Override
     public boolean keyUp(int keycode) {
         switch (keycode) {
-            case Keys.UP:
-                spaceship.changeValue(Movements.UP);
-                break;
-            case Keys.DOWN:
-                spaceship.changeValue(Movements.DOWN);
-                break;
+//            case Keys.UP:
+//                spaceship.changeValue(Movements.UP);
+//                break;
+//            case Keys.DOWN:
+//                spaceship.changeValue(Movements.DOWN);
+//                break;
             case Keys.LEFT:
+            case Keys.A:
                 spaceship.changeValue(Movements.LEFT);
                 break;
             case Keys.RIGHT:
+            case Keys.D:
                 spaceship.changeValue(Movements.RIGHT);
                 break;
-            case Keys.W:
-                spaceship.changeValue(Movements.FRONT);
-                break;
-            case Keys.S:
-                spaceship.changeValue(Movements.BACK);
+//            case Keys.W:
+//                spaceship.changeValue(Movements.FRONT);
+//                break;
+//            case Keys.S:
+//                spaceship.changeValue(Movements.BACK);
+//                break;
+            case Keys.SPACE:
+                spaceship.shoot();
                 break;
 
         }
