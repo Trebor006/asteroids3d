@@ -1,22 +1,38 @@
 package com.mibu.asteroids3d.objects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.BoundingBox;
 import com.mibu.asteroids3d.assets.SpaceshipAssets;
 import com.mibu.asteroids3d.controller.SpaceshipController;
 import com.mibu.asteroids3d.util.AssetManagerUtil;
 import com.mibu.asteroids3d.util.CameraUtil;
+import com.mibu.asteroids3d.controller.ProjectilController;
+import com.mibu.asteroids3d.controller.SpaceshipStateController;
 import com.mibu.asteroids3d.util.Movements;
+
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Spaceship extends Actor {
     private static final float DELTA_DEGREE = 0.00001f;
     private ModelInstance model;
     private boolean[] states;
-    private SpaceshipController stateNaveController;
     private Vector3 position;
+    private Vector3 direction;
+    private SpaceshipController stateNaveController;
+    private CopyOnWriteArrayList<Projectil> projectiles;
+    private ProjectilController projectilController;
+
+    float scaleModel = 0.3f;
 
     public Spaceship() {
         model = new ModelInstance(AssetManagerUtil.getAssetManager().get(SpaceshipAssets.getDefault(), Model.class));
@@ -30,13 +46,25 @@ public class Spaceship extends Actor {
         Matrix4 transform = model.transform;
         transform.getTranslation(position);
         transform.setToRotation(0, 1, 0, 180);
-        transform.scale(0.4f, 0.4f, 0.4f);
+        transform.scale(scaleModel, scaleModel, scaleModel);
+        //transform.scale(0.3f, 0.3f, 0.3f);
 
         position.x = 0f;
         position.y = -4f;
-        position.z = -1f;
+        position.z = 4f;
+        logPosition();
         transform.setTranslation(position);
         model.transform.set(transform);
+
+        direction = null;
+
+        initializeProjectiles();
+    }
+
+    private void initializeProjectiles(){
+        projectiles = new CopyOnWriteArrayList<>();
+        projectilController = new ProjectilController(projectiles);
+        projectilController.start();
     }
 
     @Override
@@ -47,6 +75,10 @@ public class Spaceship extends Actor {
     public void draw(ModelBatch batch) {
         batch.begin(CameraUtil.getCamera());
         batch.render(model);
+        batch.end();
+        for (Projectil projectil : projectiles) {
+            projectil.draw(batch);
+        }
         batch.end();
     }
 
@@ -76,6 +108,90 @@ public class Spaceship extends Actor {
     }
 
     public void shoot() {
-//        projectiles.add(Projectil.createNew(position));
+        BoundingBox boundingBox = new BoundingBox();
+        model.calculateBoundingBox(boundingBox);
+        Vector3 dimensions = new Vector3();
+        boundingBox.getDimensions(dimensions);
+
+        // Obtener las dimensiones del modelo
+        float width = dimensions.x * scaleModel;
+        float height = dimensions.y * scaleModel;
+        float depth = dimensions.z * scaleModel;
+
+        System.out.println("Ancho del modelo: " + width);
+        System.out.println("Altura del modelo: " + height);
+        System.out.println("Profundidad del modelo: " + depth);
+
+        Vector3 positionProjectile = new Vector3(position.x, position.y + (height / 2), position.z - depth);
+//        Vector3 directionProjectile = new Vector3(direction.x, direction.y, direction.z);
+        Vector3 directionProjectile = new Vector3(0f, 0, SpaceshipStateController.getSpeed() * -1);
+        logVector("Posision Nave", position);
+        logVector("Posision Proyectil", positionProjectile);
+        logVector("Direccion Proyectil", directionProjectile);
+        projectiles.add(Projectil.createNew(positionProjectile, directionProjectile));
     }
+
+    public void updateDirection(float x, float y, float z){
+        if(direction == null) {
+            direction = new Vector3(x, y, z);
+        } else {
+            direction.x = x;
+            direction.y = y;
+            direction.z = z;
+        }
+        //System.out.println("direction => x="+direction.x+", y="+direction.y+", z="+direction.z);
+    }
+
+    public void calculateDirection(){
+        if(position.x == 0f){
+            updateDirection(0f, SpaceshipStateController.getSpeed(), 0f);
+            return;
+        }
+        // todo mostrar mira o hacer esto variable
+        float alturaMira= 8f;
+
+        //calcular angulo
+        float opuesto = Math.abs(position.x);
+        float adyacente = alturaMira;
+//        double angulo = Math.tan(adyacente / opuesto);
+        float opuestodif = SpaceshipStateController.getSpeed();
+        float adyacentedif = opuestodif * adyacente / opuesto;
+        if(position.x > 0){
+            adyacentedif = adyacentedif * -1;
+        }
+
+        updateDirection(SpaceshipStateController.getSpeed(), adyacentedif, 0f);
+    }
+//    public void calculateDirection(){
+//        if(position.x == 0f){
+//            updateDirection(0f, SpaceshipStateController.getSpeed(), 0f);
+//            return;
+//        }
+//        // todo mostrar mira o hacer esto variable
+//        float alturaMira= 8f;
+//
+//        //calcular angulo
+//        float opuesto = Math.abs(position.x);
+//        float adyacente = alturaMira;
+////        double angulo = Math.tan(adyacente / opuesto);
+//        float opuestodif = SpaceshipStateController.getSpeed();
+//        float adyacentedif = opuestodif * adyacente / opuesto;
+//        if(position.x > 0){
+//            adyacentedif = adyacentedif * -1;
+//        }
+//
+//        updateDirection(SpaceshipStateController.getSpeed(), adyacentedif, 0f);
+//    }
+
+    public void logPosition(){
+        if(position != null){
+            System.out.println("position => x="+position.x+", y="+position.y+", z="+position.z);
+        }
+    }
+    public void logVector(String titulo, Vector3 direction){
+        if(direction != null){
+            System.out.println(titulo + " => x="+direction.x+", y="+direction.y+", z="+direction.z);
+        }
+    }
+
 }

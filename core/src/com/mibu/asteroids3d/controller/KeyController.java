@@ -25,10 +25,12 @@ public class KeyController extends InputAdapter {
                 spaceship.changeValue(Movements.DOWN);
                 break;
             case Keys.LEFT:
-                spaceship.changeValue(Movements.LEFT);
+//                spaceship.changeValue(Movements.LEFT);
+                spaceship.changeValue(Movements.LEFT_MOVE);
                 break;
             case Keys.RIGHT:
-                spaceship.changeValue(Movements.RIGHT);
+//                spaceship.changeValue(Movements.RIGHT);
+                spaceship.changeValue(Movements.RIGHT_MOVE);
                 break;
             case Keys.A:
                 spaceship.changeValue(Movements.LEFT_MOVE);
@@ -42,10 +44,9 @@ public class KeyController extends InputAdapter {
             case Keys.S:
                 spaceship.changeValue(Movements.BACK);
                 break;
-
-            case Keys.SPACE:
-                spaceship.shoot();
-                break;
+//            case Keys.SPACE:
+//                spaceship.shoot();
+//                break;
 
 //            case Keys.E:
 //                spaceship.changeValue(Movements.BACK);
@@ -68,10 +69,12 @@ public class KeyController extends InputAdapter {
                 spaceship.changeValue(Movements.DOWN);
                 break;
             case Keys.LEFT:
-                spaceship.changeValue(Movements.LEFT);
+                spaceship.changeValue(Movements.LEFT_MOVE);
+//                spaceship.changeValue(Movements.LEFT);
                 break;
             case Keys.RIGHT:
-                spaceship.changeValue(Movements.RIGHT);
+                spaceship.changeValue(Movements.RIGHT_MOVE);
+//                spaceship.changeValue(Movements.RIGHT);
                 break;
             case Keys.W:
                 spaceship.changeValue(Movements.FRONT);
@@ -84,6 +87,9 @@ public class KeyController extends InputAdapter {
                 break;
             case Keys.D:
                 spaceship.changeValue(Movements.RIGHT_MOVE);
+                break;
+            case Keys.SPACE:
+                spaceship.shoot();
                 break;
 
         }
