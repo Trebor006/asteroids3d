@@ -79,7 +79,6 @@ public class Spaceship extends Actor {
         for (Projectil projectil : projectiles) {
             projectil.draw(batch);
         }
-        batch.end();
     }
 
     public void changeValue(Movements motion) {

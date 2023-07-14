@@ -2,17 +2,28 @@ package com.mibu.asteroids3d.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.mibu.asteroids3d.controller.AsteroidController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Stage {
     private List<Actor> actors;
+    private CopyOnWriteArrayList<Asteroid> asteroids;
     private ModelBatch modelBatch;
+
+    private AsteroidController asteroidController;
 
     public Stage() {
         this.actors = new ArrayList<>();
         this.modelBatch = new ModelBatch();
+        this.asteroids = new CopyOnWriteArrayList<>();
+
+        asteroidController = new AsteroidController(asteroids);
+        asteroidController.start();
+
+        crearAsteroides();
     }
 
     public void addActor(Actor actor) {
@@ -21,6 +32,29 @@ public class Stage {
 
     public void removeActor(Actor actor) {
         actors.remove(actor);
+    }
+
+    public void crearAsteroides() {
+        Runnable myThread = new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    if(asteroids.size() > 5){
+                        return;
+                    }
+                    asteroids.add(Asteroid.createNew());
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        };
+
+        Thread run = new Thread(myThread);
+
+        run.start();
     }
 
     public void act() {
@@ -32,6 +66,9 @@ public class Stage {
     public void draw() {
         for (Actor actor : actors) {
             actor.draw(modelBatch);
+        }
+        for (Asteroid asteroid : asteroids) {
+            asteroid.draw(modelBatch);
         }
     }
 

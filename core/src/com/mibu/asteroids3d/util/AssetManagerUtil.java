@@ -5,7 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 public class AssetManagerUtil {
     private static AssetManager assetManager;
 
-    public static AssetManager getAssetManager() {
+    public static AssetManager  getAssetManager() {
         if (assetManager == null) {
             assetManager = new AssetManager();
         }
