@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.collision.BoundingBox;
 import com.mibu.asteroids3d.assets.SpaceshipAssets;
 import com.mibu.asteroids3d.controller.SpaceshipController;
 import com.mibu.asteroids3d.util.AssetManagerUtil;
-import com.mibu.asteroids3d.util.AssetUtils;
+import com.mibu.asteroids3d.assets.AssetUtils;
 import com.mibu.asteroids3d.util.CameraUtil;
 import com.mibu.asteroids3d.controller.ProjectilController;
 import com.mibu.asteroids3d.util.Movements;

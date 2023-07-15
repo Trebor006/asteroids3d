@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mibu.asteroids3d.controller.KeyController;
 import com.mibu.asteroids3d.objects.Spaceship;
 import com.mibu.asteroids3d.objects.Stage;
-import com.mibu.asteroids3d.util.AssetUtils;
+import com.mibu.asteroids3d.assets.AssetUtils;
 import com.mibu.asteroids3d.util.CameraUtil;
 
 public class GameScreen extends BaseScreen {

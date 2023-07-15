@@ -1,4 +1,4 @@
-package com.mibu.asteroids3d.util;
+package com.mibu.asteroids3d.assets;
 
 public class AssetUtils {
 

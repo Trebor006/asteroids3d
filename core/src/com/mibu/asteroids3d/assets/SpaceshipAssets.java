@@ -8,7 +8,7 @@ public class SpaceshipAssets {
     public static final String naveDefiant = "naves/Defiant/defiant.obj";
     public static final String naveConstellation = "naves/Constellation/Constellation.obj";
     public static final String navePrometheus = "naves/PrometheusNX59650/prometheus.obj";
-    public static final String naveSaberncc61947 = "naves/SaberClass/saberncc61947.obj";//this
+    public static final String naveSaberncc61947 = "assets/naves/SaberClass/saberncc61947.obj";//this
     public static final String naveVoyager = "naves/VoyagerNCC74656/voyager.obj";
     public static final String naveTridentA10 = "naves/space-fighter-trident/obj/Trident-A10.obj";
 
