@@ -1,9 +1,7 @@
 package com.mibu.asteroids3d.objects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
@@ -16,12 +14,8 @@ import com.mibu.asteroids3d.util.AssetManagerUtil;
 import com.mibu.asteroids3d.util.AssetUtils;
 import com.mibu.asteroids3d.util.CameraUtil;
 import com.mibu.asteroids3d.controller.ProjectilController;
-//import com.mibu.asteroids3d.controller.SpaceshipStateController;
 import com.mibu.asteroids3d.util.Movements;
 
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Spaceship extends Actor {
@@ -138,17 +132,6 @@ public class Spaceship extends Actor {
 //        logVector("Direccion Proyectil", directionProjectile);
         projectiles.add(Projectil.createNew(positionProjectile));
         sound.play();
-    }
-
-    public void updateDirection(float x, float y, float z) {
-        if (direction == null) {
-            direction = new Vector3(x, y, z);
-        } else {
-            direction.x = x;
-            direction.y = y;
-            direction.z = z;
-        }
-        //System.out.println("direction => x="+direction.x+", y="+direction.y+", z="+direction.z);
     }
 
     public void logPosition() {
