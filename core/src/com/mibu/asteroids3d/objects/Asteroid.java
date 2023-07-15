@@ -107,4 +107,8 @@ public class Asteroid extends Actor {
             System.out.println(titulo + " => x="+direction.x+", y="+direction.y+", z="+direction.z);
         }
     }
+
+    @Override
+    public void dispose() {
+    }
 }

@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.ModelCache;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
+import com.badlogic.gdx.utils.Disposable;
 import com.mibu.asteroids3d.assets.SpaceshipAssets;
 import com.mibu.asteroids3d.controller.SpaceshipController;
 import com.mibu.asteroids3d.util.AssetManagerUtil;
@@ -16,16 +18,22 @@ import com.mibu.asteroids3d.util.CameraUtil;
 import com.mibu.asteroids3d.controller.ProjectilController;
 import com.mibu.asteroids3d.util.Movements;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Spaceship extends Actor {
     private static final float DELTA_DEGREE = 0.00001f;
     private ModelInstance model;
+    private ModelCache cache;
+
     private boolean[] states;
     private Vector3 position;
     private Vector3 direction;
     private SpaceshipController stateNaveController;
     private CopyOnWriteArrayList<Projectil> projectiles;
+    private List<ModelInstance> cacheInstances;
+
     private ProjectilController projectilController;
     private Sound sound;
 
@@ -57,8 +65,10 @@ public class Spaceship extends Actor {
         direction = null;
 
         sound = Gdx.audio.newSound(Gdx.files.internal(AssetUtils.disparo));
+        cache = new ModelCache();
 
         initializeProjectiles();
+        cacheInstances = new ArrayList<>();
     }
 
     private void initializeProjectiles() {
@@ -76,6 +86,12 @@ public class Spaceship extends Actor {
         batch.begin(CameraUtil.getCamera());
         batch.render(model);
         batch.end();
+
+
+        cache.begin();
+        cache.add(cacheInstances);
+        cache.end();
+
         for (Projectil projectil : projectiles) {
             projectil.draw(batch);
         }
@@ -130,7 +146,11 @@ public class Spaceship extends Actor {
         logVector("Posision Nave", position);
         logVector("Posision Proyectil", positionProjectile);
 //        logVector("Direccion Proyectil", directionProjectile);
-        projectiles.add(Projectil.createNew(positionProjectile));
+
+        Projectil newProyectil = Projectil.createNew(positionProjectile);
+        newProyectil.getModelInstance();
+        projectiles.add(newProyectil);
+
         sound.play();
     }
 
@@ -144,5 +164,11 @@ public class Spaceship extends Actor {
         if (direction != null) {
             System.out.println(titulo + " => x=" + direction.x + ", y=" + direction.y + ", z=" + direction.z);
         }
+    }
+
+    @Override
+    public void dispose() {
+        // dispose models and such
+        cache.dispose();
     }
 }

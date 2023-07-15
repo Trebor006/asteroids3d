@@ -65,6 +65,11 @@ public class Projectil extends Actor{
     public void destroy(){
 
     }
+
+    @Override
+    public void dispose() {
+
+    }
 }
 
 

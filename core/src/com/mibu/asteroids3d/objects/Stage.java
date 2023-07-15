@@ -75,5 +75,11 @@ public class Stage {
 
     public void dispose() {
         modelBatch.dispose();
+        for (Actor actor : actors) {
+            actor.dispose();
+        }
+        for (Asteroid asteroid : asteroids) {
+            asteroid.dispose();
+        }
     }
 }
