@@ -2,12 +2,11 @@ package com.mibu.asteroids3d.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.mibu.asteroids3d.objects.Asteroid;
-import com.mibu.asteroids3d.objects.Projectil;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class AsteroidController extends Thread {
-    public static float SPEED = 0.00001F;
+    public static float SPEED = 0.000009F;
 
     private volatile CopyOnWriteArrayList<Asteroid> asteroids;
 

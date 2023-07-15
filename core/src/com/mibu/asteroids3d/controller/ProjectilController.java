@@ -2,12 +2,11 @@ package com.mibu.asteroids3d.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.mibu.asteroids3d.objects.Projectil;
-import lombok.AllArgsConstructor;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ProjectilController extends Thread {
-    public static float SPEED = 0.00001F;
+    public static float SPEED = 0.00005F;
 
     private volatile CopyOnWriteArrayList<Projectil> projectiles;
     private volatile int indexProyectil;
