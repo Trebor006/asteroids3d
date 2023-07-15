@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.mibu.asteroids3d.util.CameraUtil;
 
 
-public class Projectil extends Actor{
+public class Projectil extends Actor {
     private Vector3 position;
     private ModelInstance model;
 
@@ -62,7 +62,7 @@ public class Projectil extends Actor{
 
     }
 
-    public void destroy(){
+    public void destroy() {
 
     }
 

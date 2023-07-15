@@ -21,51 +21,14 @@ public class Asteroid extends Actor {
     public Asteroid() {
         float x = RandomUtil.getRandomPosition();
         System.out.println("random x " + x);
-        position = new Vector3(x, 0f, -3.99f);
+        position = new Vector3(x, RandomUtil.getRandomPosition(), -3.99f);
         logVector("Posicion asteroide ", position);
-//        // Cargar la textura utilizando el AssetManager
-//        Texture texture = new Texture(Gdx.files.internal(AsteroidAssets.getDefault()));
-//
-//        // Crear un material con la textura
-//        Material material = new Material(TextureAttribute.createDiffuse(texture));
-//
-//        // Crear el modelo del proyectil utilizando un modelBuilder
-//        ModelBuilder modelBuilder = new ModelBuilder();
-//        modelBuilder.begin();
-//        modelBuilder.part("box", GL20.GL_TRIANGLES, VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates, material)
-//                .box(1f, 1f, 1f);
-//        Model modelData = modelBuilder.end();
-//
-//        // Crear la instancia del modelo
-//        model = new ModelInstance(modelData);
-//
-//        // Configurar la posición y la transformación del modelo
-//
-//        model.transform.setToTranslation(position);
-//        model.transform.scale(0.5f, 0.5f, 0.5f);
-
 
         model = new ModelInstance(AssetManagerUtil.getAssetManager().get(AsteroidAssets.getDefault(), Model.class));
 
         Matrix4 transform = model.transform;
         transform.setTranslation(position);
-        //transform.setToRotation(0, 1, 0, 180);
         transform.scale(scaleModel, scaleModel, scaleModel);
-        //transform.scale(0.3f, 0.3f, 0.3f);
-
-//        position.x = 0f;
-//        position.y = 0f;
-//        position.z = -3.9f;
-//
-//        transform.setTranslation(position);
-//        model.transform.set(transform);
-
-
-//        ModelBuilder modelBuilder = new ModelBuilder();
-//        Model modelData = modelBuilder.createSphere(0.1f, 0.1f, 0.1f, 50, 50,
-//                new Material(), VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
-//        model = new ModelInstance(modelData);
-//        model.transform.setToTranslation(position);
 
     }
 
@@ -102,9 +65,9 @@ public class Asteroid extends Actor {
 
     }
 
-    public void logVector(String titulo, Vector3 direction){
-        if(direction != null){
-            System.out.println(titulo + " => x="+direction.x+", y="+direction.y+", z="+direction.z);
+    public void logVector(String titulo, Vector3 direction) {
+        if (direction != null) {
+            System.out.println(titulo + " => x=" + direction.x + ", y=" + direction.y + ", z=" + direction.z);
         }
     }
 

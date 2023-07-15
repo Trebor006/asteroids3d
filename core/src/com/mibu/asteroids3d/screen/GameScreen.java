@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mibu.asteroids3d.controller.GameController;
 import com.mibu.asteroids3d.controller.KeyController;
 import com.mibu.asteroids3d.objects.Spaceship;
 import com.mibu.asteroids3d.objects.Stage;
@@ -12,17 +13,20 @@ import com.mibu.asteroids3d.assets.AssetUtils;
 import com.mibu.asteroids3d.util.CameraUtil;
 
 public class GameScreen extends BaseScreen {
-    private Stage stage;
+    public static Stage stage;
     private KeyController inputController;
     private SpriteBatch batch;
     private Texture texture;
     private TextureRegion region;
+    public static Spaceship naveActor;
 
     public GameScreen() {
+        GameController gameController = new GameController();
+
         this.stage = new Stage();
         this.inputController = new KeyController();
 
-        Spaceship naveActor = new Spaceship();
+        naveActor = new Spaceship();
         stage.addActor(naveActor);
 
         inputController.setSpaceship(naveActor);
@@ -31,6 +35,8 @@ public class GameScreen extends BaseScreen {
         batch = new SpriteBatch();
         texture = new Texture(Gdx.files.internal(AssetUtils.fondo));
         region = new TextureRegion(texture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        gameController.start();
     }
 
     @Override

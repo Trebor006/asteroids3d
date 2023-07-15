@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
-import com.badlogic.gdx.utils.Disposable;
 import com.mibu.asteroids3d.assets.SpaceshipAssets;
 import com.mibu.asteroids3d.controller.SpaceshipController;
 import com.mibu.asteroids3d.util.AssetManagerUtil;
@@ -36,7 +35,6 @@ public class Spaceship extends Actor {
 
     private ProjectilController projectilController;
     private Sound sound;
-
 
     float scaleModel = 0.3f;
 
@@ -86,7 +84,6 @@ public class Spaceship extends Actor {
         batch.begin(CameraUtil.getCamera());
         batch.render(model);
         batch.end();
-
 
         cache.begin();
         cache.add(cacheInstances);
@@ -148,7 +145,6 @@ public class Spaceship extends Actor {
 //        logVector("Direccion Proyectil", directionProjectile);
 
         Projectil newProyectil = Projectil.createNew(positionProjectile);
-        newProyectil.getModelInstance();
         projectiles.add(newProyectil);
 
         sound.play();
@@ -166,9 +162,25 @@ public class Spaceship extends Actor {
         }
     }
 
+    public ModelInstance getModel(){
+        return model;
+    }
+
+    public Vector3 getPosition(){
+        return position;
+    }
+
+    public List<ModelInstance> getProyectilesModelInstances(){
+        return cacheInstances;
+    }
+
     @Override
     public void dispose() {
         // dispose models and such
         cache.dispose();
+    }
+
+    public List<Projectil> getProyectiles() {
+        return projectiles;
     }
 }

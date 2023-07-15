@@ -2,6 +2,7 @@ package com.mibu.asteroids3d.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.mibu.asteroids3d.controller.AsteroidController;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Stage {
     private List<Actor> actors;
     private CopyOnWriteArrayList<Asteroid> asteroids;
-    private CopyOnWriteArrayList<Projectil> projectils;
+    private List<ModelInstance> asteroidsModelInstance;
     private ModelBatch modelBatch;
     private AsteroidController asteroidController;
 
@@ -19,11 +20,9 @@ public class Stage {
         this.actors = new ArrayList<>();
         this.modelBatch = new ModelBatch();
         this.asteroids = new CopyOnWriteArrayList<>();
-        this.projectils = new CopyOnWriteArrayList<>();
 
         asteroidController = new AsteroidController(asteroids);
         asteroidController.start();
-
         crearAsteroides();
     }
 
@@ -41,7 +40,7 @@ public class Stage {
             public void run() {
                 while (true) {
                     if (asteroids.size() > 5) {
-                        break;
+                        continue;
                     }
                     asteroids.add(Asteroid.createNew());
                     try {
@@ -71,6 +70,10 @@ public class Stage {
         for (Asteroid asteroid : asteroids) {
             asteroid.draw(modelBatch);
         }
+    }
+
+    public CopyOnWriteArrayList<Asteroid> getAsteroids(){
+        return this.asteroids;
     }
 
     public void dispose() {
