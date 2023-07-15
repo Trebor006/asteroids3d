@@ -100,10 +100,13 @@ public class Spaceship extends Actor {
         model.transform.set(transform);
     }
 
-    public void changeSpaceship(int pos) {
+    public void changeSpaceship() {
 //        model.get
 //        assetManager.get
-//        model = new ModelInstance(assetManager.get(SpaceshipAssets.switchSpaceshipAsset(pos), Model.class));
+        // Buscar la clave del modelo en el AssetManager
+
+        model = new ModelInstance(AssetManagerUtil.getAssetManager()
+                .get(SpaceshipAssets.switchSpaceshipAsset(), Model.class));
     }
 
     public void shoot() {
@@ -123,11 +126,11 @@ public class Spaceship extends Actor {
 
         Vector3 positionProjectile = new Vector3(position.x, position.y + (height / 2), position.z - depth);
 //        Vector3 directionProjectile = new Vector3(direction.x, direction.y, direction.z);
-        Vector3 directionProjectile = new Vector3(0f, 0, SpaceshipStateController.getSpeed() * -1);
+//        Vector3 directionProjectile = new Vector3(0f, 0, SpaceshipStateController.getSpeed() * -1);
         logVector("Posision Nave", position);
         logVector("Posision Proyectil", positionProjectile);
-        logVector("Direccion Proyectil", directionProjectile);
-        projectiles.add(Projectil.createNew(positionProjectile, directionProjectile));
+//        logVector("Direccion Proyectil", directionProjectile);
+        projectiles.add(Projectil.createNew(positionProjectile));
     }
 
     public void updateDirection(float x, float y, float z){

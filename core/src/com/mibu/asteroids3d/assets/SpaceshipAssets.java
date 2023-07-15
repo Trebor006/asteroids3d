@@ -12,6 +12,7 @@ public class SpaceshipAssets {
     public static final String naveVoyager = "naves/VoyagerNCC74656/voyager.obj";
     public static final String naveTridentA10 = "naves/space-fighter-trident/obj/Trident-A10.obj";
 
+    private static String currentAsset = naveSaberncc61947;
     public static String getDefault() {
         return naveSaberncc61947;
     }
@@ -27,12 +28,13 @@ public class SpaceshipAssets {
                 naveVoyager);
     }
 
-    public static String switchSpaceshipAsset(String currentAsset, int pos) {
+    public static String switchSpaceshipAsset() {
         int i = getList().indexOf(currentAsset) + 1;
         if (i == getList().size()) {
             i = 0;
         }
 
-        return getList().get(i);
+        String currentAsset = getList().get(i);
+        return currentAsset;
     }
 }

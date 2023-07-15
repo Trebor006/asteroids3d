@@ -1,40 +1,28 @@
 package com.mibu.asteroids3d.objects;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.VertexAttributes;
-import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
-import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
-import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
-import com.mibu.asteroids3d.assets.AimAssets;
 import com.mibu.asteroids3d.assets.AsteroidAssets;
-import com.mibu.asteroids3d.assets.SpaceshipAssets;
-import com.mibu.asteroids3d.controller.AsteroidController;
-import com.mibu.asteroids3d.controller.ProjectilController;
-import com.mibu.asteroids3d.controller.SpaceshipController;
 import com.mibu.asteroids3d.util.AssetManagerUtil;
 import com.mibu.asteroids3d.util.CameraUtil;
-import com.mibu.asteroids3d.util.Movements;
+import com.mibu.asteroids3d.util.RandomUtil;
 
-import java.util.concurrent.CopyOnWriteArrayList;
-
-public class Asteroid  extends Actor{
+public class Asteroid extends Actor {
 
     private static final float DELTA_DEGREE = 0.00001f;
     private ModelInstance model;
     private boolean[] states;
     private Vector3 position;
-    float scaleModel = 0.3f;
+    float scaleModel = 0.01f;
 
     public Asteroid() {
-        position = new Vector3(0f, 0f,-3.9f);
-
+        float x = RandomUtil.getRandomPosition();
+        System.out.println("random x " + x);
+        position = new Vector3(x, 0f, -3.99f);
+        logVector("Posicion asteroide ", position);
 //        // Cargar la textura utilizando el AssetManager
 //        Texture texture = new Texture(Gdx.files.internal(AsteroidAssets.getDefault()));
 //
@@ -59,19 +47,18 @@ public class Asteroid  extends Actor{
 
         model = new ModelInstance(AssetManagerUtil.getAssetManager().get(AsteroidAssets.getDefault(), Model.class));
 
-        position = new Vector3(0f, 0f,-3.99f);
         Matrix4 transform = model.transform;
-        transform.getTranslation(position);
+        transform.setTranslation(position);
         //transform.setToRotation(0, 1, 0, 180);
         transform.scale(scaleModel, scaleModel, scaleModel);
         //transform.scale(0.3f, 0.3f, 0.3f);
 
-        position.x = 0f;
-        position.y = 0f;
-        position.z = -3.9f;
-
-        transform.setTranslation(position);
-        model.transform.set(transform);
+//        position.x = 0f;
+//        position.y = 0f;
+//        position.z = -3.9f;
+//
+//        transform.setTranslation(position);
+//        model.transform.set(transform);
 
 
 //        ModelBuilder modelBuilder = new ModelBuilder();
@@ -113,5 +100,11 @@ public class Asteroid  extends Actor{
     @Override
     public void act(float delta) {
 
+    }
+
+    public void logVector(String titulo, Vector3 direction){
+        if(direction != null){
+            System.out.println(titulo + " => x="+direction.x+", y="+direction.y+", z="+direction.z);
+        }
     }
 }

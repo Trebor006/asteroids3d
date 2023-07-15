@@ -44,6 +44,9 @@ public class KeyController extends InputAdapter {
             case Keys.S:
                 spaceship.changeValue(Movements.BACK);
                 break;
+            case Keys.TAB:
+                spaceship.changeSpaceship();
+                break;
 //            case Keys.SPACE:
 //                spaceship.shoot();
 //                break;

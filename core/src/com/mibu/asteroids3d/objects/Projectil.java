@@ -13,15 +13,13 @@ import com.mibu.asteroids3d.util.CameraUtil;
 
 public class Projectil extends Actor{
     private Vector3 position;
-    public Vector3 direction;
     private ModelInstance model;
 
     public volatile boolean isVisible;
 
-    public Projectil(Vector3 position, Vector3 direction) {
+    public Projectil(Vector3 position) {
 
         this.position = position;
-        this.direction = direction;
 
         ModelBuilder modelBuilder = new ModelBuilder();
         Model modelData = modelBuilder.createSphere(0.1f, 0.1f, 0.1f, 50, 50,
@@ -31,8 +29,8 @@ public class Projectil extends Actor{
         isVisible = true;
     }
 
-    public static Projectil createNew(Vector3 position, Vector3 direction) {
-        return new Projectil(position, direction);
+    public static Projectil createNew(Vector3 position) {
+        return new Projectil(position);
     }
 
     public void translate(float x, float y, float z) {

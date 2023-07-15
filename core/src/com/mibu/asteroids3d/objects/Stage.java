@@ -11,14 +11,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Stage {
     private List<Actor> actors;
     private CopyOnWriteArrayList<Asteroid> asteroids;
+    private CopyOnWriteArrayList<Projectil> projectils;
     private ModelBatch modelBatch;
-
     private AsteroidController asteroidController;
 
     public Stage() {
         this.actors = new ArrayList<>();
         this.modelBatch = new ModelBatch();
         this.asteroids = new CopyOnWriteArrayList<>();
+        this.projectils = new CopyOnWriteArrayList<>();
 
         asteroidController = new AsteroidController(asteroids);
         asteroidController.start();
@@ -39,12 +40,12 @@ public class Stage {
             @Override
             public void run() {
                 while (true) {
-                    if(asteroids.size() > 5){
-                        return;
+                    if (asteroids.size() > 5) {
+                        break;
                     }
                     asteroids.add(Asteroid.createNew());
                     try {
-                        Thread.sleep(2000);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
