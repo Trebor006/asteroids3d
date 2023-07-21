@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 
 public class CameraUtil {
-    private static PerspectiveCamera camera;
     public static final float CAM_NEAR = 1f; // Distancia mínima que la cámara puede ver
     public static final float CAM_FAR = 300f; // Distancia máxima que la cámara puede ver
+    private static PerspectiveCamera camera;
 
     public static PerspectiveCamera getCamera() {
         if (camera == null) {

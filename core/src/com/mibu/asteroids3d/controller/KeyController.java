@@ -17,7 +17,8 @@ public class KeyController extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
-        if (GameController.isGameOver()){
+
+        if (GameController.isGameOver()) {
             return false;
         }
 
@@ -68,7 +69,7 @@ public class KeyController extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode) {
-        if (GameController.isGameOver()){
+        if (GameController.isGameOver()) {
             return false;
         }
 

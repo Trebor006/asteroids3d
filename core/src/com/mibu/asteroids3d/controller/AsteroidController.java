@@ -7,13 +7,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class AsteroidController extends Thread {
     public static float SPEED = 0.000009F;
-
-    private volatile CopyOnWriteArrayList<Asteroid> asteroids;
-
     private static float maxValueEje = 4f;
-
-
     public volatile int indexAsteroid;
+    private volatile CopyOnWriteArrayList<Asteroid> asteroids;
 
     public AsteroidController(CopyOnWriteArrayList<Asteroid> asteroids) {
         this.asteroids = asteroids;
@@ -22,12 +18,13 @@ public class AsteroidController extends Thread {
 
     public void run() {
         while (!GameController.isGameOver()) {
-            if (asteroids.size() == 0){
+            if (asteroids.size() == 0) {
                 continue;
             }
 
             Asteroid asteroid = asteroids.get(indexAsteroid);
-            if(asteroid.getPosition().z + getSpeed() >= maxValueEje) {
+            if (asteroid.getPosition().z + getSpeed() >= maxValueEje) {
+                asteroid = null;
                 asteroids.remove(indexAsteroid);
             } else {
                 asteroid.translate(0f, 0f, getSpeed());
@@ -41,12 +38,12 @@ public class AsteroidController extends Thread {
     }
 
     private synchronized Asteroid moveAsteroid() {
-        if (asteroids.size() == 0){
+        if (asteroids.size() == 0) {
             return null;
         }
 
         Asteroid asteroid = asteroids.get(indexAsteroid);
-        if(asteroid.getPosition().z + getSpeed() >= maxValueEje) {
+        if (asteroid.getPosition().z + getSpeed() >= maxValueEje) {
             asteroids.remove(indexAsteroid);
             asteroid = null;
         } else {

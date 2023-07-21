@@ -13,10 +13,10 @@ import com.mibu.asteroids3d.util.RandomUtil;
 public class Asteroid extends Actor {
 
     private static final float DELTA_DEGREE = 0.00001f;
+    float scaleModel = 0.01f;
     private ModelInstance model;
     private boolean[] states;
     private Vector3 position;
-    float scaleModel = 0.01f;
 
     public Asteroid() {
         float x = RandomUtil.getRandomPosition();

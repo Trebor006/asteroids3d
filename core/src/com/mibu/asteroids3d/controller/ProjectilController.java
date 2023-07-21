@@ -7,11 +7,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ProjectilController extends Thread {
     public static float SPEED = 0.00005F;
-
+    private static float maxValueEje = -4f;
     private volatile CopyOnWriteArrayList<Projectil> projectiles;
     private volatile int indexProyectil;
-
-    private static float maxValueEje = -4f;
 
     public ProjectilController(CopyOnWriteArrayList<Projectil> projectiles) {
         this.projectiles = projectiles;
@@ -27,14 +25,14 @@ public class ProjectilController extends Thread {
     }
 
     private synchronized Projectil moveProyectil() {
-        if (projectiles.size() == 0){
+        if (projectiles.size() == 0) {
             return null;
         }
 
         Projectil projectil = projectiles.get(indexProyectil);
-        if(projectil.getPosition().z + (getSpeed() * -1) <= maxValueEje) {
-            projectiles.remove(indexProyectil);
+        if (projectil.getPosition().z + (getSpeed() * -1) <= maxValueEje) {
             projectil = null;
+            projectiles.remove(indexProyectil);
         } else {
             projectil.translate(0f, 0f, (getSpeed() * -1));
             indexProyectil++;

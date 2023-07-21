@@ -14,10 +14,9 @@ import com.mibu.asteroids3d.util.CameraUtil;
 
 
 public class Projectil extends Actor {
+    public volatile boolean isVisible;
     private Vector3 position;
     private ModelInstance model;
-
-    public volatile boolean isVisible;
 
     public Projectil(Vector3 position) {
 

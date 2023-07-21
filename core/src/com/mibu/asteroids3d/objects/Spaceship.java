@@ -9,12 +9,12 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
+import com.mibu.asteroids3d.assets.AssetUtils;
 import com.mibu.asteroids3d.assets.SpaceshipAssets;
+import com.mibu.asteroids3d.controller.ProjectilController;
 import com.mibu.asteroids3d.controller.SpaceshipController;
 import com.mibu.asteroids3d.util.AssetManagerUtil;
-import com.mibu.asteroids3d.assets.AssetUtils;
 import com.mibu.asteroids3d.util.CameraUtil;
-import com.mibu.asteroids3d.controller.ProjectilController;
 import com.mibu.asteroids3d.util.Movements;
 
 import java.util.ArrayList;
@@ -23,20 +23,17 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Spaceship extends Actor {
     private static final float DELTA_DEGREE = 0.00001f;
+    float scaleModel = 0.3f;
     private ModelInstance model;
     private ModelCache cache;
-
     private boolean[] states;
     private Vector3 position;
     private Vector3 direction;
     private SpaceshipController stateNaveController;
     private CopyOnWriteArrayList<Projectil> projectiles;
     private List<ModelInstance> cacheInstances;
-
     private ProjectilController projectilController;
     private Sound sound;
-
-    float scaleModel = 0.3f;
 
     public Spaceship() {
         model = new ModelInstance(AssetManagerUtil.getAssetManager().get(SpaceshipAssets.getDefault(), Model.class));
@@ -162,15 +159,15 @@ public class Spaceship extends Actor {
         }
     }
 
-    public ModelInstance getModel(){
+    public ModelInstance getModel() {
         return model;
     }
 
-    public Vector3 getPosition(){
+    public Vector3 getPosition() {
         return position;
     }
 
-    public List<ModelInstance> getProyectilesModelInstances(){
+    public List<ModelInstance> getProyectilesModelInstances() {
         return cacheInstances;
     }
 

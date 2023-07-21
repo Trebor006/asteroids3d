@@ -2,6 +2,7 @@ package com.mibu.asteroids3d.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.physics.bullet.Bullet;
@@ -15,10 +16,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameController extends Thread {
 
+    public static boolean allowGame;
     private Sound sound;
     private Sound loseSound;
     private Sound gameOverSound;
-    public static boolean allowGame;
 
     public GameController() {
         Bullet.init();
@@ -26,6 +27,10 @@ public class GameController extends Thread {
         loseSound = Gdx.audio.newSound(Gdx.files.internal(AssetUtils.lose));
         gameOverSound = Gdx.audio.newSound(Gdx.files.internal(AssetUtils.gameOverSound));
         allowGame = true;
+    }
+
+    public static boolean isGameOver() {
+        return !allowGame;
     }
 
     @Override
@@ -62,9 +67,7 @@ public class GameController extends Thread {
                 HealthController.quitarVida();
 
                 if (HealthController.vida == 0) {
-                    allowGame = false;
-                    gameOverSound.play();
-                    gameOverSound.play();
+                    setGameOver();
                 }
             }
         }
@@ -83,7 +86,22 @@ public class GameController extends Thread {
         return new BoundingBox(min, max);
     }
 
-    public static boolean isGameOver() {
-        return !allowGame;
+    public void setGameOver() {
+        allowGame = false;
+        gameOverSound.play();
+        gameOverSound.play();
+
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() {
+                setTextureGameOver();
+            }
+        });
+    }
+
+    private void setTextureGameOver() {
+        GameScreen.textureGameOver.dispose();
+        GameScreen.textureGameOver = new Texture(Gdx.files.internal(AssetUtils.gameOverBack));
+        GameScreen.regionGameOver.setTexture(GameScreen.textureGameOver);
     }
 }

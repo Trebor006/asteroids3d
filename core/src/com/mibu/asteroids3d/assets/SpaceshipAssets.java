@@ -13,6 +13,7 @@ public class SpaceshipAssets {
     public static final String naveTridentA10 = "naves/space-fighter-trident/obj/Trident-A10.obj";
 
     private static String currentAsset = naveSaberncc61947;
+
     public static String getDefault() {
         return naveSaberncc61947;
     }

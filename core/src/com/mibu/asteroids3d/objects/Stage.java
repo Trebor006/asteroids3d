@@ -72,7 +72,7 @@ public class Stage {
         }
     }
 
-    public CopyOnWriteArrayList<Asteroid> getAsteroids(){
+    public CopyOnWriteArrayList<Asteroid> getAsteroids() {
         return this.asteroids;
     }
 

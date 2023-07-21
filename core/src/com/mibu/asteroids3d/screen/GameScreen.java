@@ -5,20 +5,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mibu.asteroids3d.assets.AssetUtils;
 import com.mibu.asteroids3d.assets.HealthAssets;
 import com.mibu.asteroids3d.controller.GameController;
 import com.mibu.asteroids3d.controller.HealthController;
 import com.mibu.asteroids3d.controller.KeyController;
 import com.mibu.asteroids3d.objects.Spaceship;
 import com.mibu.asteroids3d.objects.Stage;
-import com.mibu.asteroids3d.assets.AssetUtils;
 import com.mibu.asteroids3d.util.CameraUtil;
 
 public class GameScreen extends BaseScreen {
     public static Stage stage;
-    private KeyController inputController;
-    private SpriteBatch batch;
-    private Texture texture;
     public static Texture textureHealth;
     public static Texture textureGameOver;
     public static TextureRegion region;
@@ -26,6 +23,9 @@ public class GameScreen extends BaseScreen {
     public static TextureRegion regionGameOver;
     public static Spaceship naveActor;
     public static HealthController healthController;
+    private KeyController inputController;
+    private SpriteBatch batch;
+    private Texture texture;
 
 
     public GameScreen() {
@@ -48,7 +48,7 @@ public class GameScreen extends BaseScreen {
         textureHealth = new Texture(Gdx.files.internal(HealthAssets.getVidaAsset(100)));
         regionHealth = new TextureRegion(textureHealth);
 
-        textureGameOver = new Texture(Gdx.files.internal(AssetUtils.gameOverBack));
+        textureGameOver = new Texture(Gdx.files.internal(AssetUtils.empty));
         regionGameOver = new TextureRegion(textureGameOver);
         gameController.start();
     }
@@ -66,13 +66,15 @@ public class GameScreen extends BaseScreen {
         batch.begin();
         batch.draw(region, 0, 0);
         batch.draw(regionHealth, 10, Gdx.graphics.getHeight() - regionHealth.getRegionHeight() - 10);
-        batch.draw(regionGameOver, (float) Gdx.graphics.getWidth() / 2 -
-                        (float) regionHealth.getRegionWidth() / 2
-                , Gdx.graphics.getHeight() - regionHealth.getRegionHeight());
         batch.end();
 
         stage.act();
         stage.draw();
+
+        batch.begin();
+        batch.draw(regionGameOver, (float) ((Gdx.graphics.getWidth() - regionGameOver.getRegionWidth()) / 2),
+                (float) ((Gdx.graphics.getHeight() - regionGameOver.getRegionHeight()) / 2));
+        batch.end();
     }
 
     @Override
