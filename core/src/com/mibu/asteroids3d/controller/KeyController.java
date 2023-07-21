@@ -17,6 +17,10 @@ public class KeyController extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
+        if (GameController.isGameOver()){
+            return false;
+        }
+
         switch (keycode) {
             case Keys.UP:
                 spaceship.changeValue(Movements.UP);
@@ -64,6 +68,10 @@ public class KeyController extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode) {
+        if (GameController.isGameOver()){
+            return false;
+        }
+
         switch (keycode) {
             case Keys.UP:
                 spaceship.changeValue(Movements.UP);

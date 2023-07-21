@@ -21,7 +21,7 @@ public class ProjectilController extends Thread {
 
     @Override
     public void run() {
-        while (!GameController.isGameOver()) {
+        while (true) {
             moveProyectil();
         }
     }

@@ -17,12 +17,14 @@ public class GameController extends Thread {
 
     private Sound sound;
     private Sound loseSound;
+    private Sound gameOverSound;
     public static boolean allowGame;
 
     public GameController() {
         Bullet.init();
         sound = Gdx.audio.newSound(Gdx.files.internal(AssetUtils.explosion));
         loseSound = Gdx.audio.newSound(Gdx.files.internal(AssetUtils.lose));
+        gameOverSound = Gdx.audio.newSound(Gdx.files.internal(AssetUtils.gameOverSound));
         allowGame = true;
     }
 
@@ -59,10 +61,10 @@ public class GameController extends Thread {
 
                 HealthController.quitarVida();
 
-                if (HealthController.vida > 20) {
+                if (HealthController.vida == 0) {
                     allowGame = false;
-                    loseSound.play();
-                    loseSound.play();
+                    gameOverSound.play();
+                    gameOverSound.play();
                 }
             }
         }

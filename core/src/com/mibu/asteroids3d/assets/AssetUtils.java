@@ -6,4 +6,6 @@ public class AssetUtils {
     public static String disparo = "assets/sound/shot.mp3";
     public static String explosion = "assets/sound/explosion.mp3";
     public static String lose = "assets/sound/lose.mp3";
+    public static String gameOverSound = "assets/sound/gameover.mp3";
+    public static String gameOverBack = "assets/vida/gameover.png";
 }

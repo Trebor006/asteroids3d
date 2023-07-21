@@ -20,8 +20,10 @@ public class GameScreen extends BaseScreen {
     private SpriteBatch batch;
     private Texture texture;
     public static Texture textureHealth;
+    public static Texture textureGameOver;
     public static TextureRegion region;
     public static TextureRegion regionHealth;
+    public static TextureRegion regionGameOver;
     public static Spaceship naveActor;
     public static HealthController healthController;
 
@@ -45,6 +47,9 @@ public class GameScreen extends BaseScreen {
 
         textureHealth = new Texture(Gdx.files.internal(HealthAssets.getVidaAsset(100)));
         regionHealth = new TextureRegion(textureHealth);
+
+        textureGameOver = new Texture(Gdx.files.internal(AssetUtils.gameOverBack));
+        regionGameOver = new TextureRegion(textureGameOver);
         gameController.start();
     }
 
@@ -61,6 +66,9 @@ public class GameScreen extends BaseScreen {
         batch.begin();
         batch.draw(region, 0, 0);
         batch.draw(regionHealth, 10, Gdx.graphics.getHeight() - regionHealth.getRegionHeight() - 10);
+        batch.draw(regionGameOver, (float) Gdx.graphics.getWidth() / 2 -
+                        (float) regionHealth.getRegionWidth() / 2
+                , Gdx.graphics.getHeight() - regionHealth.getRegionHeight());
         batch.end();
 
         stage.act();
