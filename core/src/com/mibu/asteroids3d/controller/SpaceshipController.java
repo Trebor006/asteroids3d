@@ -16,7 +16,7 @@ public class SpaceshipController extends Thread {
     public void run() {
         Movements[] movements = Movements.values();
         int i = 0;
-        while (true) {
+        while (!GameController.isGameOver()) {
             if (states[i]) {
                 moveSpaceship(i, movements);
             }

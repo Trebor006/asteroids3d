@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mibu.asteroids3d.assets.HealthAssets;
 import com.mibu.asteroids3d.controller.GameController;
+import com.mibu.asteroids3d.controller.HealthController;
 import com.mibu.asteroids3d.controller.KeyController;
 import com.mibu.asteroids3d.objects.Spaceship;
 import com.mibu.asteroids3d.objects.Stage;
@@ -17,11 +19,16 @@ public class GameScreen extends BaseScreen {
     private KeyController inputController;
     private SpriteBatch batch;
     private Texture texture;
-    private TextureRegion region;
+    public static Texture textureHealth;
+    public static TextureRegion region;
+    public static TextureRegion regionHealth;
     public static Spaceship naveActor;
+    public static HealthController healthController;
+
 
     public GameScreen() {
         GameController gameController = new GameController();
+        healthController = new HealthController();
 
         this.stage = new Stage();
         this.inputController = new KeyController();
@@ -36,6 +43,8 @@ public class GameScreen extends BaseScreen {
         texture = new Texture(Gdx.files.internal(AssetUtils.fondo));
         region = new TextureRegion(texture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+        textureHealth = new Texture(Gdx.files.internal(HealthAssets.getVidaAsset(100)));
+        regionHealth = new TextureRegion(textureHealth);
         gameController.start();
     }
 
@@ -51,6 +60,7 @@ public class GameScreen extends BaseScreen {
 
         batch.begin();
         batch.draw(region, 0, 0);
+        batch.draw(regionHealth, 10, Gdx.graphics.getHeight() - regionHealth.getRegionHeight() - 10);
         batch.end();
 
         stage.act();
