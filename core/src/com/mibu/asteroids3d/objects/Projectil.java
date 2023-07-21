@@ -1,10 +1,12 @@
 package com.mibu.asteroids3d.objects;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
+import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
@@ -22,8 +24,9 @@ public class Projectil extends Actor {
         this.position = position;
 
         ModelBuilder modelBuilder = new ModelBuilder();
-        Model modelData = modelBuilder.createSphere(0.1f, 0.1f, 0.1f, 50, 50,
-                new Material(), VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
+        Material material = new Material(ColorAttribute.createDiffuse(Color.YELLOW));
+        Model modelData = modelBuilder.createSphere(0.3f, 0.3f, 0.3f, 50, 50,
+                material, VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
         model = new ModelInstance(modelData);
         model.transform.setToTranslation(position);
         isVisible = true;
