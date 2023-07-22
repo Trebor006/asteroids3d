@@ -33,7 +33,7 @@ public class Spaceship extends Actor {
     private ProjectilController projectilController;
 
     public Spaceship() {
-        model = new ModelInstance(AssetManagerUtil.getAssetManager().get(SpaceshipAssets.getDefault(), Model.class));
+        model = new ModelInstance(AssetManagerUtil.getAssetManager().get(SpaceshipAssets.nave, Model.class));
         states = new boolean[Movements.values().length];
 
         position = new Vector3(0, 0, 0);
@@ -103,15 +103,6 @@ public class Spaceship extends Actor {
         Matrix4 transform = model.transform;
         transform.rotate(0, 0, z, DELTA_DEGREE);
         model.transform.set(transform);
-    }
-
-    public void changeSpaceship() {
-//        model.get
-//        assetManager.get
-        // Buscar la clave del modelo en el AssetManager
-
-        model = new ModelInstance(AssetManagerUtil.getAssetManager()
-                .get(SpaceshipAssets.switchSpaceshipAsset(), Model.class));
     }
 
     public void shoot() {

@@ -11,10 +11,8 @@ import com.mibu.asteroids3d.util.AssetManagerUtil;
 public class Asteroids3D extends Game {
 
     public Asteroids3D() {
-        for (String assetSpaceship : SpaceshipAssets.getList()) {
-            AssetManagerUtil.getAssetManager()
-                    .load(assetSpaceship, Model.class);
-        }
+        AssetManagerUtil.getAssetManager()
+                .load(SpaceshipAssets.nave, Model.class);
         AssetManagerUtil.getAssetManager()
                 .load(AsteroidAssets.getDefault(), Model.class);
     }
