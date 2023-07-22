@@ -1,7 +1,5 @@
 package com.mibu.asteroids3d.objects;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelCache;
@@ -9,9 +7,9 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
-import com.mibu.asteroids3d.assets.AssetUtils;
 import com.mibu.asteroids3d.assets.SpaceshipAssets;
 import com.mibu.asteroids3d.controller.ProjectilController;
+import com.mibu.asteroids3d.controller.SoundController;
 import com.mibu.asteroids3d.controller.SpaceshipController;
 import com.mibu.asteroids3d.util.AssetManagerUtil;
 import com.mibu.asteroids3d.util.CameraUtil;
@@ -33,7 +31,6 @@ public class Spaceship extends Actor {
     private CopyOnWriteArrayList<Projectil> projectiles;
     private List<ModelInstance> cacheInstances;
     private ProjectilController projectilController;
-    private Sound sound;
 
     public Spaceship() {
         model = new ModelInstance(AssetManagerUtil.getAssetManager().get(SpaceshipAssets.getDefault(), Model.class));
@@ -58,8 +55,6 @@ public class Spaceship extends Actor {
         model.transform.set(transform);
 
         direction = null;
-
-        sound = Gdx.audio.newSound(Gdx.files.internal(AssetUtils.disparo));
         cache = new ModelCache();
 
         initializeProjectiles();
@@ -144,7 +139,7 @@ public class Spaceship extends Actor {
         Projectil newProyectil = Projectil.createNew(positionProjectile);
         projectiles.add(newProyectil);
 
-        sound.play();
+        SoundController.shootSound.play();
     }
 
     public void logPosition() {
@@ -179,5 +174,9 @@ public class Spaceship extends Actor {
 
     public List<Projectil> getProyectiles() {
         return projectiles;
+    }
+
+    public void reiniciarPosicion() {
+        position = new Vector3(0, 0, 0);
     }
 }

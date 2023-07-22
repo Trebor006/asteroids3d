@@ -19,7 +19,11 @@ public class KeyController extends InputAdapter {
     public boolean keyDown(int keycode) {
 
         if (GameController.isGameOver()) {
-            return false;
+            if (keycode == Keys.R) {
+                HealthController.reiniciarJuego();
+            } else {
+                return false;
+            }
         }
 
         switch (keycode) {

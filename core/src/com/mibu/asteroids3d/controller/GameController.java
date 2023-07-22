@@ -1,7 +1,6 @@
 package com.mibu.asteroids3d.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
@@ -17,15 +16,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class GameController extends Thread {
 
     public static boolean allowGame;
-    private Sound sound;
-    private Sound loseSound;
-    private Sound gameOverSound;
 
     public GameController() {
         Bullet.init();
-        sound = Gdx.audio.newSound(Gdx.files.internal(AssetUtils.explosion));
-        loseSound = Gdx.audio.newSound(Gdx.files.internal(AssetUtils.lose));
-        gameOverSound = Gdx.audio.newSound(Gdx.files.internal(AssetUtils.gameOverSound));
         allowGame = true;
     }
 
@@ -36,7 +29,11 @@ public class GameController extends Thread {
     @Override
     public void run() {
         System.out.println("Validando colisiones");
-        while (!GameController.isGameOver()) {
+        while (true) {
+            if (GameController.isGameOver()){
+                continue;
+            }
+
             checkCollisionsAndRemove(GameScreen.stage.getAsteroids(), GameScreen.naveActor.getProyectiles());
         }
     }
@@ -52,7 +49,7 @@ public class GameController extends Thread {
                 otherObject.getModelInstance().calculateBoundingBox(otherBounds);
 
                 if (bounds.intersects(otherBounds)) {
-                    sound.play();
+                    SoundController.asteroidExplosionSound.play();
                     asteroids.remove(asteroid);
                     proyectiles.remove(otherObject);
                 }
@@ -61,7 +58,7 @@ public class GameController extends Thread {
             BoundingBox boundNave = calculateInitialBoundingBox(GameScreen.naveActor.getPosition());
 
             if (bounds.intersects(boundNave)) {
-                loseSound.play();
+                SoundController.spaceshipCollisionSound.play();
                 asteroids.remove(asteroid); // Elimina el objeto colisionado de la lista
 
                 HealthController.quitarVida();
@@ -88,8 +85,8 @@ public class GameController extends Thread {
 
     public void setGameOver() {
         allowGame = false;
-        gameOverSound.play();
-        gameOverSound.play();
+       SoundController.gameOverSound.play();
+        SoundController.gameOverSound.play();
 
         Gdx.app.postRunnable(new Runnable() {
             @Override

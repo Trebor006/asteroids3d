@@ -17,7 +17,11 @@ public class AsteroidController extends Thread {
     }
 
     public void run() {
-        while (!GameController.isGameOver()) {
+        while (true) {
+            if (GameController.isGameOver()){
+                continue;
+            }
+
             if (asteroids.size() == 0) {
                 continue;
             }

@@ -10,6 +10,7 @@ import com.mibu.asteroids3d.assets.HealthAssets;
 import com.mibu.asteroids3d.controller.GameController;
 import com.mibu.asteroids3d.controller.HealthController;
 import com.mibu.asteroids3d.controller.KeyController;
+import com.mibu.asteroids3d.controller.SoundController;
 import com.mibu.asteroids3d.objects.Spaceship;
 import com.mibu.asteroids3d.objects.Stage;
 import com.mibu.asteroids3d.util.CameraUtil;
@@ -30,6 +31,7 @@ public class GameScreen extends BaseScreen {
 
     public GameScreen() {
         GameController gameController = new GameController();
+        SoundController.loadSounds();
         healthController = new HealthController();
 
         this.stage = new Stage();
