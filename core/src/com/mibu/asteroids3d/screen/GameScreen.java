@@ -1,8 +1,10 @@
 package com.mibu.asteroids3d.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mibu.asteroids3d.assets.AssetUtils;
@@ -27,7 +29,7 @@ public class GameScreen extends BaseScreen {
     private KeyController inputController;
     private SpriteBatch batch;
     private Texture texture;
-
+    private BitmapFont font;
 
     public GameScreen() {
         GameController gameController = new GameController();
@@ -53,6 +55,9 @@ public class GameScreen extends BaseScreen {
         textureGameOver = new Texture(Gdx.files.internal(AssetUtils.empty));
         regionGameOver = new TextureRegion(textureGameOver);
         gameController.start();
+        font = new BitmapFont();
+        font.setColor(Color.WHITE); // Estableces el color del texto en blanco
+
     }
 
     @Override
@@ -76,6 +81,8 @@ public class GameScreen extends BaseScreen {
         batch.begin();
         batch.draw(regionGameOver, (float) ((Gdx.graphics.getWidth() - regionGameOver.getRegionWidth()) / 2),
                 (float) ((Gdx.graphics.getHeight() - regionGameOver.getRegionHeight()) / 2));
+
+        font.draw(batch, "Puntos: " + GameController.puntos, Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 20);
         batch.end();
     }
 

@@ -2,6 +2,7 @@ package com.mibu.asteroids3d.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.physics.bullet.Bullet;
@@ -17,6 +18,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class GameController extends Thread {
 
     public static boolean allowGame;
+    public static int puntos = 0;
 
     public GameController() {
         Bullet.init();
@@ -51,6 +53,7 @@ public class GameController extends Thread {
 
                 if (bounds.intersects(otherBounds)) {
                     SoundController.asteroidExplosionSound.play();
+                    actualizarPuntos();
                     asteroids.remove(asteroid);
                     proyectiles.remove(otherObject);
                 }
@@ -71,6 +74,26 @@ public class GameController extends Thread {
         }
     }
 
+    private void actualizarPuntos() {
+        puntos += 10;
+
+        if (puntos == 100) {
+            allowGame = false;
+            winGameTexturas();
+        }
+    }
+
+    private static void winGameTexturas() {
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() {
+                GameScreen.textureGameOver = new Texture(Gdx.files.internal(AssetUtils.youwin));
+                GameScreen.regionGameOver = new TextureRegion(GameScreen.textureGameOver);
+            }
+        });
+        Arrays.fill(GameScreen.naveActor.states, false);
+    }
+
     private BoundingBox calculateInitialBoundingBox(Vector3 center) {
         // Tamaño del bounding box
         Vector3 size = new Vector3(2f, 2f, 2f);
@@ -87,7 +110,7 @@ public class GameController extends Thread {
     public void setGameOver() {
         allowGame = false;
         SoundController.gameOverSound.play();
-//        SoundController.gameOverSound.play();
+        Arrays.fill(GameScreen.naveActor.states, false);
 
         Gdx.app.postRunnable(new Runnable() {
             @Override
@@ -95,7 +118,6 @@ public class GameController extends Thread {
                 setTextureGameOver();
             }
         });
-        Arrays.fill(GameScreen.naveActor.states, false);
     }
 
     private void setTextureGameOver() {

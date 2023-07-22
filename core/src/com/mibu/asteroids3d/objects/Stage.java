@@ -39,9 +39,9 @@ public class Stage {
             @Override
             public void run() {
                 while (true) {
-                    if (asteroids.size() > 5) {
-                        continue;
-                    }
+//                    if (asteroids.size() > 5) {
+//                        continue;
+//                    }
                     asteroids.add(Asteroid.createNew());
                     try {
                         Thread.sleep(1000);

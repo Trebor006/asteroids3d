@@ -44,6 +44,7 @@ public class HealthController {
 //        GameScreen.naveActor.reiniciarPosicion();
         reiniciarTexturas();
         SoundController.startGameSound.play();
+        GameController.puntos = 0;
     }
 
     private static void reiniciarTexturas() {
