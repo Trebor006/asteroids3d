@@ -79,27 +79,19 @@ public class Asteroid extends Actor {
     }
 
     public void avanzarHaciaDestino() {
-        Vector3 calculateNewPos = calculateNewPos(AsteroidController.getSpeed(this));
-        position = calculateNewPos;
+        position = calculateNewPos(AsteroidController.getSpeed(this));
         translate();
     }
 
     public Vector3 calculateNewPos(float speed) {
-        // Calcular la dirección hacia la posición final
         Vector3 direction = new Vector3(finalPosition)
                 .sub(position).nor();
 
-        // Calcular la nueva posición utilizando la velocidad
-        Vector3 newPos = new Vector3(position).add(new Vector3(direction).scl(speed));
-
-        return newPos;
+        return new Vector3(position).add(new Vector3(direction).scl(speed));
     }
 
     public void translate() {
         Matrix4 transform = model.transform;
-//        position.x += x;
-//        position.y += y;
-//        position.z += z;
         transform.setTranslation(position);
         model.transform.set(transform);
     }
