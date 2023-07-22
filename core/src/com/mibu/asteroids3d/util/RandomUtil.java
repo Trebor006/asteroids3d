@@ -3,8 +3,8 @@ package com.mibu.asteroids3d.util;
 import java.util.Random;
 
 public class RandomUtil {
-    public static float SPEED = 0.000009F;
-    public static float MAX_SPEED = 0.0001F;
+    public static float SPEED = 0.00005F;
+    public static float MAX_SPEED = 0.00005F;
     private static Random random;
 
     public static float getRandomPosition() {

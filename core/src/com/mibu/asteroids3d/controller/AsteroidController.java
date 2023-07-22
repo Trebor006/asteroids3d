@@ -30,7 +30,7 @@ public class AsteroidController extends Thread {
                 asteroid = null;
                 asteroids.remove(indexAsteroid);
             } else {
-                asteroid.translate(0f, 0f, getSpeed(asteroid));
+                asteroid.move();
                 indexAsteroid++;
             }
 
@@ -40,7 +40,7 @@ public class AsteroidController extends Thread {
         }
     }
 
-    private float getSpeed(Asteroid asteroid) {
+    public static float getSpeed(Asteroid asteroid) {
         return asteroid.getSpeed() * Gdx.graphics.getDeltaTime();
     }
 }

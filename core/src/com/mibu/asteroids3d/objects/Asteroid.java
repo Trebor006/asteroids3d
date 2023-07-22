@@ -6,8 +6,10 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.mibu.asteroids3d.assets.AsteroidAssets;
+import com.mibu.asteroids3d.controller.AsteroidController;
 import com.mibu.asteroids3d.util.AssetManagerUtil;
 import com.mibu.asteroids3d.util.CameraUtil;
+import com.mibu.asteroids3d.util.PosUtils;
 import com.mibu.asteroids3d.util.RandomUtil;
 import lombok.Getter;
 
@@ -16,8 +18,8 @@ public class Asteroid extends Actor {
     private static final float DELTA_DEGREE = 0.00001f;
     float scaleModel = 0.01f;
     private ModelInstance model;
-    private boolean[] states;
     private Vector3 position;
+    private Vector3 finalPosition;
 
     @Getter
     private Float speed;
@@ -25,7 +27,9 @@ public class Asteroid extends Actor {
     public Asteroid() {
         float x = RandomUtil.getRandomPosition();
         System.out.println("random x " + x);
-        position = new Vector3(x, RandomUtil.getRandomPosition(), -3.99f);
+//        position = new Vector3(x, RandomUtil.getRandomPosition(), -3.99f);
+        position = PosUtils.generarPosicionInicial();
+        finalPosition = PosUtils.generarPosicionFinal();
         logVector("Posicion asteroide ", position);
 
         model = new ModelInstance(AssetManagerUtil.getAssetManager().get(AsteroidAssets.getDefault(), Model.class));
@@ -38,15 +42,6 @@ public class Asteroid extends Actor {
 
     public static Asteroid createNew() {
         return new Asteroid();
-    }
-
-    public void translate(float x, float y, float z) {
-        Matrix4 transform = model.transform;
-        position.x += x;
-        position.y += y;
-        position.z += z;
-        transform.setTranslation(position);
-        model.transform.set(transform);
     }
 
     public Vector3 getPosition() {
@@ -77,5 +72,39 @@ public class Asteroid extends Actor {
 
     @Override
     public void dispose() {
+    }
+
+    public void move() {
+        avanzarHaciaDestino();
+    }
+
+    public void avanzarHaciaDestino() {
+        Vector3 calculateNewPos = calculateNewPos(AsteroidController.getSpeed(this));
+        position = calculateNewPos;
+        translate();
+    }
+
+    public Vector3 calculateNewPos(float speed) {
+        // Calcular la dirección hacia la posición final
+        Vector3 direction = new Vector3(finalPosition)
+                .sub(position).nor();
+
+        // Calcular la nueva posición utilizando la velocidad
+        Vector3 newPos = new Vector3(position).add(new Vector3(direction).scl(speed));
+
+        return newPos;
+    }
+
+    public void translate() {
+        Matrix4 transform = model.transform;
+//        position.x += x;
+//        position.y += y;
+//        position.z += z;
+        transform.setTranslation(position);
+        model.transform.set(transform);
+    }
+
+    public void actualizarPorColision() {
+        finalPosition = PosUtils.generarPosicionInicial();
     }
 }

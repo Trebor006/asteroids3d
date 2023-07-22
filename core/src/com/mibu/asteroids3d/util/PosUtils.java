@@ -16,6 +16,16 @@ public class PosUtils {
         return new Vector3(x, y, z);
     }
 
+    public static Vector3 generarPosicionFinal() {
+        Random random = new Random();
+
+        float x = random.nextFloat() * (10 - (-10)) + (-10);
+        float y = random.nextFloat() * (10 - (-10)) + (-10);
+        float z = 10;
+
+        return new Vector3(x, y, z);
+    }
+
     public static Vector3 generarDireccion(Vector3 positionInitial, Vector3 positionFinal, float deltaVariacion) {
         Vector3 direccion = new Vector3();
 
@@ -40,16 +50,6 @@ public class PosUtils {
         return direccion;
     }
 
-
-    public static Vector3 generarPosicionFinal() {
-        Random random = new Random();
-
-        float x = random.nextFloat() * (10 - (-10)) + (-10);
-        float y = random.nextFloat() * (10 - (-10)) + (-10);
-        float z = -10;
-
-        return new Vector3(x, y, z);
-    }
 //    public Vector3 Avanzar() {
 //        return new Vector3(
 //                direccion.x * (posicionFinal.x - posicionInicial.x),
