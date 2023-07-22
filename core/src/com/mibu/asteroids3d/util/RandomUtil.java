@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class RandomUtil {
     public static float SPEED = 0.00005F;
-    public static float MAX_SPEED = 0.00005F;
+    public static float MAX_SPEED = 0.00007F;
     private static Random random;
 
     public static float getRandomPosition() {
