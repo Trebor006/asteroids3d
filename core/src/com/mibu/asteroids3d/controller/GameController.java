@@ -88,7 +88,7 @@ public class GameController extends Thread {
     private void actualizarPuntos() {
         puntos += 10;
 
-        if (puntos == 100) {
+        if (puntos >= 100) {
             allowGame = false;
             winGameTexturas();
         }
