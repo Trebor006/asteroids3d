@@ -2,16 +2,14 @@ package com.mibu.asteroids3d.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.mibu.asteroids3d.objects.Asteroid;
-
-import java.util.concurrent.CopyOnWriteArrayList;
+import com.mibu.asteroids3d.objects.Stage;
+import com.mibu.asteroids3d.util.PosUtils;
 
 public class AsteroidController extends Thread {
-    private static float maxValueEje = 4f;
+    private static float maxValueEje = (float) PosUtils.MAX / 2;
     public volatile int indexAsteroid;
-    private volatile CopyOnWriteArrayList<Asteroid> asteroids;
 
-    public AsteroidController(CopyOnWriteArrayList<Asteroid> asteroids) {
-        this.asteroids = asteroids;
+    public AsteroidController() {
         this.indexAsteroid = 0;
     }
 
@@ -21,20 +19,20 @@ public class AsteroidController extends Thread {
                 continue;
             }
 
-            if (asteroids.size() == 0) {
+            if (Stage.asteroids.size() == 0) {
                 continue;
             }
 
-            Asteroid asteroid = asteroids.get(indexAsteroid);
+            Asteroid asteroid = Stage.asteroids.get(indexAsteroid);
             if (asteroid.getPosition().z + getSpeed(asteroid) >= maxValueEje) {
                 asteroid = null;
-                asteroids.remove(indexAsteroid);
+                Stage.asteroids.remove(indexAsteroid);
             } else {
                 asteroid.move();
                 indexAsteroid++;
             }
 
-            if (indexAsteroid >= asteroids.size()) {
+            if (indexAsteroid >= Stage.asteroids.size()) {
                 indexAsteroid = 0;
             }
         }
