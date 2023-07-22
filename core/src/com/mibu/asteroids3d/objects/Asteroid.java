@@ -9,6 +9,7 @@ import com.mibu.asteroids3d.assets.AsteroidAssets;
 import com.mibu.asteroids3d.util.AssetManagerUtil;
 import com.mibu.asteroids3d.util.CameraUtil;
 import com.mibu.asteroids3d.util.RandomUtil;
+import lombok.Getter;
 
 public class Asteroid extends Actor {
 
@@ -18,6 +19,9 @@ public class Asteroid extends Actor {
     private boolean[] states;
     private Vector3 position;
 
+    @Getter
+    private Float speed;
+
     public Asteroid() {
         float x = RandomUtil.getRandomPosition();
         System.out.println("random x " + x);
@@ -25,7 +29,7 @@ public class Asteroid extends Actor {
         logVector("Posicion asteroide ", position);
 
         model = new ModelInstance(AssetManagerUtil.getAssetManager().get(AsteroidAssets.getDefault(), Model.class));
-
+        speed = RandomUtil.randomSpeed();
         Matrix4 transform = model.transform;
         transform.setTranslation(position);
         transform.scale(scaleModel, scaleModel, scaleModel);
