@@ -97,6 +97,6 @@ public class Asteroid extends Actor {
     }
 
     public void actualizarPorColision() {
-        finalPosition = PosUtils.generarPosicionInicial();
+        finalPosition = PosUtils.generarPosicionFinal();
     }
 }

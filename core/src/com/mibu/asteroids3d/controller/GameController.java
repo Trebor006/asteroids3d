@@ -52,6 +52,24 @@ public class GameController extends Thread {
         }
     }
 
+
+    private void checkCollisionsBetweenAsteroid(CopyOnWriteArrayList<Asteroid> asteroids) {
+        for (Asteroid asteroid : asteroids) {
+            BoundingBox bounds = calculateInitialBoundingBox(asteroid.getPosition());
+            for (Asteroid otherObject : asteroids) {
+                if (!otherObject.equals(asteroid)) {
+                    BoundingBox otherBounds = new BoundingBox();
+                    otherObject.getModelInstance().calculateBoundingBox(otherBounds);
+                    if (bounds.intersects(otherBounds)) {
+                        asteroid.actualizarPorColision();
+                        otherObject.actualizarPorColision();
+                    }
+                }
+            }
+        }
+
+    }
+
     private void checkCollisionsAndRemove(CopyOnWriteArrayList<Asteroid> asteroids,
                                           List<Projectil> proyectiles) {
 
@@ -83,6 +101,8 @@ public class GameController extends Thread {
                 }
             }
         }
+
+        checkCollisionsBetweenAsteroid(asteroids);
     }
 
     private void actualizarPuntos() {
