@@ -5,7 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mibu.asteroids3d.assets.AssetUtils;
 import com.mibu.asteroids3d.assets.HealthAssets;
+import com.mibu.asteroids3d.objects.Stage;
 import com.mibu.asteroids3d.screen.GameScreen;
+
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class HealthController {
     public static Integer vida;
@@ -45,6 +48,9 @@ public class HealthController {
         reiniciarTexturas();
         SoundController.startGameSound.play();
         GameController.puntos = 0;
+
+        Stage.asteroids = new CopyOnWriteArrayList<>();
+        GameScreen.naveActor.getProyectiles().clear();
     }
 
     private static void reiniciarTexturas() {

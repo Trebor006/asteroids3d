@@ -2,12 +2,13 @@ package com.mibu.asteroids3d.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.mibu.asteroids3d.objects.Projectil;
+import com.mibu.asteroids3d.util.PosUtils;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ProjectilController extends Thread {
-    public static float SPEED = 0.00005F;
-    private static float maxValueEje = -4f;
+    public static float SPEED = 0.00009F;
+    private static float maxValueEje = -PosUtils.MAX - 5;
     private volatile CopyOnWriteArrayList<Projectil> projectiles;
     private volatile int indexProyectil;
 

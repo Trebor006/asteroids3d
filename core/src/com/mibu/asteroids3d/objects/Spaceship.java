@@ -66,7 +66,7 @@ public class Spaceship extends Actor {
 
         ModelBuilder modelBuilder = new ModelBuilder();
         Material material = new Material(ColorAttribute.createDiffuse(Color.RED));
-        Model modelData = modelBuilder.createSphere(size.x * scaleModel, size.y * scaleModel, size.z * scaleModel, 50, 50,
+        Model modelData = modelBuilder.createSphere(size.x, size.y, size.z, 50, 50,
                 material, Usage.Position | Usage.Normal);
         model2 = new ModelInstance(modelData);
         model2.transform.setToTranslation(position2);

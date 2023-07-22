@@ -11,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Stage {
     private List<Actor> actors;
-    private CopyOnWriteArrayList<Asteroid> asteroids;
+    public static CopyOnWriteArrayList<Asteroid> asteroids;
     private List<ModelInstance> asteroidsModelInstance;
     private ModelBatch modelBatch;
     private AsteroidController asteroidController;
@@ -21,7 +21,7 @@ public class Stage {
         this.modelBatch = new ModelBatch();
         this.asteroids = new CopyOnWriteArrayList<>();
 
-        asteroidController = new AsteroidController(asteroids);
+        asteroidController = new AsteroidController();
         asteroidController.start();
         crearAsteroides();
     }

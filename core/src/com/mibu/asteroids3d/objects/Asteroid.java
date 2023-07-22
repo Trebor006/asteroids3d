@@ -9,9 +9,12 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.mibu.asteroids3d.assets.AsteroidAssets;
+import com.mibu.asteroids3d.controller.AsteroidController;
 import com.mibu.asteroids3d.util.AssetManagerUtil;
 import com.mibu.asteroids3d.util.CameraUtil;
+import com.mibu.asteroids3d.util.PosUtils;
 import com.mibu.asteroids3d.util.RandomUtil;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +27,11 @@ public class Asteroid extends Actor {
     private ModelInstance model2 = null;
 
     private ModelCache cache;
-    private boolean[] states;
     private Vector3 position;
+    private Vector3 finalPosition;
+
+    @Getter
+    private Float speed;
     private Vector3 position2;
     private Vector3 size;
 
@@ -35,10 +41,13 @@ public class Asteroid extends Actor {
         float x = RandomUtil.getRandomPosition();
         float y = RandomUtil.getRandomPosition();
         System.out.println("random x " + x);
-        position = new Vector3(x, y, -3.99f);
+//        position = new Vector3(x, RandomUtil.getRandomPosition(), -3.99f);
+        position = PosUtils.generarPosicionInicial();
+        finalPosition = PosUtils.generarPosicionFinal();
         logVector("Posicion asteroide ", position);
 
         model = new ModelInstance(AssetManagerUtil.getAssetManager().get(AsteroidAssets.getDefault(), Model.class));
+        speed = RandomUtil.randomSpeed();
 
         calculateSize();
 
@@ -138,5 +147,39 @@ public class Asteroid extends Actor {
             model2 = new ModelInstance(modelData);
         }
         model2.transform.setToTranslation(position2);
+    }
+
+    public void move() {
+        avanzarHaciaDestino();
+    }
+
+    public void avanzarHaciaDestino() {
+        Vector3 positionF = calculateNewPos(AsteroidController.getSpeed(this));
+
+        position2.x += positionF.x - position.x;
+        position2.y += positionF.y - position.y;
+        position2.z += positionF.z - position.z;
+
+        position = positionF;
+        translate();
+    }
+
+    public Vector3 calculateNewPos(float speed) {
+        Vector3 direction = new Vector3(finalPosition)
+                .sub(position).nor();
+
+        return new Vector3(position).add(new Vector3(direction).scl(speed));
+    }
+
+    public void translate() {
+        Matrix4 transform = model.transform;
+        transform.setTranslation(position);
+        model.transform.set(transform);
+
+
+    }
+
+    public void actualizarPorColision() {
+        finalPosition = PosUtils.generarPosicionFinal();
     }
 }
