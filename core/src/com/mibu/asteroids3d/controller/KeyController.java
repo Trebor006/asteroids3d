@@ -22,6 +22,7 @@ public class KeyController extends InputAdapter {
             if (keycode == Keys.R) {
                 HealthController.reiniciarJuego();
             } else {
+                System.out.println("SALIENDOME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 return false;
             }
         }

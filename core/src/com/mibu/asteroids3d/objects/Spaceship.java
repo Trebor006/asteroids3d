@@ -24,7 +24,7 @@ public class Spaceship extends Actor {
     float scaleModel = 0.3f;
     private ModelInstance model;
     private ModelCache cache;
-    private boolean[] states;
+    public boolean[] states;
     private Vector3 position;
     private Vector3 direction;
     private SpaceshipController stateNaveController;

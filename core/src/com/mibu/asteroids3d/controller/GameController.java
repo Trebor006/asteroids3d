@@ -10,6 +10,7 @@ import com.mibu.asteroids3d.objects.Asteroid;
 import com.mibu.asteroids3d.objects.Projectil;
 import com.mibu.asteroids3d.screen.GameScreen;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -30,7 +31,7 @@ public class GameController extends Thread {
     public void run() {
         System.out.println("Validando colisiones");
         while (true) {
-            if (GameController.isGameOver()){
+            if (GameController.isGameOver()) {
                 continue;
             }
 
@@ -85,8 +86,8 @@ public class GameController extends Thread {
 
     public void setGameOver() {
         allowGame = false;
-       SoundController.gameOverSound.play();
         SoundController.gameOverSound.play();
+//        SoundController.gameOverSound.play();
 
         Gdx.app.postRunnable(new Runnable() {
             @Override
@@ -94,6 +95,7 @@ public class GameController extends Thread {
                 setTextureGameOver();
             }
         });
+        Arrays.fill(GameScreen.naveActor.states, false);
     }
 
     private void setTextureGameOver() {

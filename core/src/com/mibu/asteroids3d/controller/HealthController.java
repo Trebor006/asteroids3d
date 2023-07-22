@@ -41,7 +41,7 @@ public class HealthController {
     public static void reiniciarJuego() {
         vida = 100;
         GameController.allowGame = true;
-        GameScreen.naveActor.reiniciarPosicion();
+//        GameScreen.naveActor.reiniciarPosicion();
         reiniciarTexturas();
         SoundController.startGameSound.play();
     }
