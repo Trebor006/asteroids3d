@@ -21,10 +21,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Spaceship extends Actor {
     private static final float DELTA_DEGREE = 0.00001f;
+    public boolean[] states;
     float scaleModel = 0.3f;
     private ModelInstance model;
     private ModelCache cache;
-    public boolean[] states;
     private Vector3 position;
     private Vector3 direction;
     private SpaceshipController stateNaveController;

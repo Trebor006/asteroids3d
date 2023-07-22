@@ -29,6 +29,17 @@ public class GameController extends Thread {
         return !allowGame;
     }
 
+    private static void winGameTexturas() {
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() {
+                GameScreen.textureGameOver = new Texture(Gdx.files.internal(AssetUtils.youwin));
+                GameScreen.regionGameOver = new TextureRegion(GameScreen.textureGameOver);
+            }
+        });
+        Arrays.fill(GameScreen.naveActor.states, false);
+    }
+
     @Override
     public void run() {
         System.out.println("Validando colisiones");
@@ -81,17 +92,6 @@ public class GameController extends Thread {
             allowGame = false;
             winGameTexturas();
         }
-    }
-
-    private static void winGameTexturas() {
-        Gdx.app.postRunnable(new Runnable() {
-            @Override
-            public void run() {
-                GameScreen.textureGameOver = new Texture(Gdx.files.internal(AssetUtils.youwin));
-                GameScreen.regionGameOver = new TextureRegion(GameScreen.textureGameOver);
-            }
-        });
-        Arrays.fill(GameScreen.naveActor.states, false);
     }
 
     private BoundingBox calculateInitialBoundingBox(Vector3 center) {
