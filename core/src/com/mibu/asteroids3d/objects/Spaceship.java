@@ -1,9 +1,10 @@
 package com.mibu.asteroids3d.objects;
 
-import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
-import com.badlogic.gdx.graphics.g3d.ModelCache;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.VertexAttributes.Usage;
+import com.badlogic.gdx.graphics.g3d.*;
+import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
+import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
@@ -24,8 +25,12 @@ public class Spaceship extends Actor {
     public boolean[] states;
     float scaleModel = 0.3f;
     private ModelInstance model;
+    private ModelInstance model2;
     private ModelCache cache;
     private Vector3 position;
+    private Vector3 size;
+    private Vector3 position2;
+
     private Vector3 direction;
     private SpaceshipController stateNaveController;
     private CopyOnWriteArrayList<Projectil> projectiles;
@@ -34,6 +39,9 @@ public class Spaceship extends Actor {
 
     public Spaceship() {
         model = new ModelInstance(AssetManagerUtil.getAssetManager().get(SpaceshipAssets.nave, Model.class));
+
+        calculateSize();
+
         states = new boolean[Movements.values().length];
 
         position = new Vector3(0, 0, 0);
@@ -53,6 +61,15 @@ public class Spaceship extends Actor {
         logPosition();
         transform.setTranslation(position);
         model.transform.set(transform);
+
+        position2 = new Vector3(position.x, position.y, position.z - 1f);
+
+        ModelBuilder modelBuilder = new ModelBuilder();
+        Material material = new Material(ColorAttribute.createDiffuse(Color.RED));
+        Model modelData = modelBuilder.createSphere(size.x * scaleModel, size.y * scaleModel, size.z * scaleModel, 50, 50,
+                material, Usage.Position | Usage.Normal);
+        model2 = new ModelInstance(modelData);
+        model2.transform.setToTranslation(position2);
 
         direction = null;
         cache = new ModelCache();
@@ -75,6 +92,7 @@ public class Spaceship extends Actor {
     public void draw(ModelBatch batch) {
         batch.begin(CameraUtil.getCamera());
         batch.render(model);
+        batch.render(model2);
         batch.end();
 
         cache.begin();
@@ -97,6 +115,13 @@ public class Spaceship extends Actor {
         position.z += z;
         transform.setTranslation(position);
         model.transform.set(transform);
+
+        Matrix4 transform1 = model2.transform;
+        position2.x += x;
+        position2.y += y;
+        position2.z += z;
+        transform1.setTranslation(position);
+        model2.transform.set(transform1);
     }
 
     public void rotate(float z) {
@@ -169,5 +194,18 @@ public class Spaceship extends Actor {
 
     public void reiniciarPosicion() {
         position = new Vector3(0, 0, 0);
+    }
+
+    public void calculateSize(){
+        BoundingBox bounds = new BoundingBox();
+        model.calculateBoundingBox(bounds);
+
+        Vector3 min = new Vector3();
+        Vector3 max = new Vector3();
+        bounds.getMin(min);
+        bounds.getMax(max);
+
+        this.size = new Vector3(Math.abs(max.x - min.x) * scaleModel, Math.abs(max.y - min.y) * scaleModel, Math.abs(max.z - min.z) * scaleModel);
+
     }
 }
