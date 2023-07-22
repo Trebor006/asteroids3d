@@ -39,7 +39,8 @@ public class Asteroid extends Actor {
 
     public Asteroid() {
         float x = RandomUtil.getRandomPosition();
-        float y = RandomUtil.getRandomPosition();
+        float y = 0f;
+        //float y = RandomUtil.getRandomPosition();
         System.out.println("random x " + x);
 //        position = new Vector3(x, RandomUtil.getRandomPosition(), -3.99f);
         position = PosUtils.generarPosicionInicial();
@@ -134,7 +135,7 @@ public class Asteroid extends Actor {
         bounds.getMin(min);
         bounds.getMax(max);
 
-        this.size = new Vector3(Math.abs(max.x - min.x) * scaleModel, Math.abs(max.y - min.y) * scaleModel, Math.abs(max.z - min.z) * scaleModel);
+        this.size = new Vector3((Math.abs(max.x - min.x) * scaleModel) + 0.3f, (Math.abs(max.y - min.y) * scaleModel) + 0.3f, (Math.abs(max.z - min.z) * scaleModel) + 0.3f);
 
     }
 
@@ -181,5 +182,9 @@ public class Asteroid extends Actor {
 
     public void actualizarPorColision() {
         finalPosition = PosUtils.generarPosicionFinal();
+    }
+
+    public Vector3 getSize() {
+        return size;
     }
 }

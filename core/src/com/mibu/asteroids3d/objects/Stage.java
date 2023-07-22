@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.mibu.asteroids3d.controller.AsteroidController;
+import com.mibu.asteroids3d.controller.GameController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +37,11 @@ public class Stage {
 
     public void crearAsteroides() {
         Runnable myThread = new Runnable() {
-            @Override
             public void run() {
                 while (true) {
+                    if(GameController.isGameOver()) {
+                        continue;
+                    }
 //                    if (asteroids.size() > 5) {
 //                        continue;
 //                    }

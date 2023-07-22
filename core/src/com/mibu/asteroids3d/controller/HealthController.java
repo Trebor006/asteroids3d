@@ -43,14 +43,15 @@ public class HealthController {
 
     public static void reiniciarJuego() {
         vida = 100;
-        GameController.allowGame = true;
+
 //        GameScreen.naveActor.reiniciarPosicion();
         reiniciarTexturas();
         SoundController.startGameSound.play();
         GameController.puntos = 0;
 
-        Stage.asteroids = new CopyOnWriteArrayList<>();
+        Stage.asteroids.clear();
         GameScreen.naveActor.getProyectiles().clear();
+        GameController.allowGame = true;
     }
 
     private static void reiniciarTexturas() {

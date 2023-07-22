@@ -208,4 +208,8 @@ public class Spaceship extends Actor {
         this.size = new Vector3(Math.abs(max.x - min.x) * scaleModel, Math.abs(max.y - min.y) * scaleModel, Math.abs(max.z - min.z) * scaleModel);
 
     }
+
+    public Vector3 getSize() {
+        return size;
+    }
 }

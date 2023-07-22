@@ -54,15 +54,14 @@ public class GameController extends Thread {
 
 
     private void checkCollisionsBetweenAsteroid(CopyOnWriteArrayList<Asteroid> asteroids) {
-        for (Asteroid asteroid : asteroids) {
-            BoundingBox bounds = calculateInitialBoundingBox(asteroid.getPosition());
-            for (Asteroid otherObject : asteroids) {
-                if (!otherObject.equals(asteroid)) {
-                    BoundingBox otherBounds = new BoundingBox();
-                    otherObject.getModelInstance().calculateBoundingBox(otherBounds);
-                    if (bounds.intersects(otherBounds)) {
-                        asteroid.actualizarPorColision();
-                        otherObject.actualizarPorColision();
+        for (Asteroid asteroid1 : asteroids) {
+            BoundingBox boundsAsteroid1 = calculateInitialBoundingBox(asteroid1.getPosition(), asteroid1.getSize());
+            for (Asteroid asteroid2 : asteroids) {
+                if (!asteroid2.equals(asteroid1)) {
+                    BoundingBox boundsAsteroide2 = calculateInitialBoundingBox(asteroid2.getPosition(), asteroid2.getSize());
+                    if (boundsAsteroid1.intersects(boundsAsteroide2)) {
+                        asteroid1.actualizarPorColision();
+                        asteroid2.actualizarPorColision();
                     }
                 }
             }
@@ -74,23 +73,23 @@ public class GameController extends Thread {
                                           List<Projectil> proyectiles) {
 
         for (Asteroid asteroid : asteroids) {
-            BoundingBox bounds = calculateInitialBoundingBox(asteroid.getPosition());
+            BoundingBox boundsAsteroid = calculateInitialBoundingBox(asteroid.getPosition(), asteroid.getSize());
 
-            for (Projectil otherObject : proyectiles) {
-                BoundingBox otherBounds = new BoundingBox();
-                otherObject.getModelInstance().calculateBoundingBox(otherBounds);
+            for (Projectil projectil : proyectiles) {
+                BoundingBox boundsProjectil = new BoundingBox();
+                projectil.getModelInstance().calculateBoundingBox(boundsProjectil);
 
-                if (bounds.intersects(otherBounds)) {
+                if (boundsAsteroid.intersects(boundsProjectil)) {
                     SoundController.asteroidExplosionSound.play();
                     actualizarPuntos();
                     asteroids.remove(asteroid);
-                    proyectiles.remove(otherObject);
+                    proyectiles.remove(projectil);
                 }
             }
 
-            BoundingBox boundNave = calculateInitialBoundingBox(GameScreen.naveActor.getPosition());
+            BoundingBox boundNave = calculateInitialBoundingBox(GameScreen.naveActor.getPosition(), GameScreen.naveActor.getSize());
 
-            if (bounds.intersects(boundNave)) {
+            if (boundsAsteroid.intersects(boundNave)) {
                 SoundController.spaceshipCollisionSound.play();
                 asteroids.remove(asteroid); // Elimina el objeto colisionado de la lista
 
@@ -114,9 +113,9 @@ public class GameController extends Thread {
         }
     }
 
-    private BoundingBox calculateInitialBoundingBox(Vector3 center) {
+    private BoundingBox calculateInitialBoundingBox(Vector3 center, Vector3 size) {
         // Tamaño del bounding box
-        Vector3 size = new Vector3(2f, 2f, 2f);
+        //Vector3 size = new Vector3(2f, 2f, 2f);
 
         // Calcular los límites del bounding box
         Vector3 halfExtents = size.cpy().scl(1f);
