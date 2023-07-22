@@ -23,6 +23,10 @@ public class AsteroidController extends Thread {
                 continue;
             }
 
+            if (indexAsteroid >= Stage.asteroids.size()) {
+                indexAsteroid = 0;
+            }
+
             Asteroid asteroid = Stage.asteroids.get(indexAsteroid);
             if (asteroid.getPosition().z + getSpeed(asteroid) >= maxValueEje) {
                 asteroid = null;
@@ -32,9 +36,7 @@ public class AsteroidController extends Thread {
                 indexAsteroid++;
             }
 
-            if (indexAsteroid >= Stage.asteroids.size()) {
-                indexAsteroid = 0;
-            }
+
         }
     }
 

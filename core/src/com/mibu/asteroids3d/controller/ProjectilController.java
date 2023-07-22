@@ -30,6 +30,11 @@ public class ProjectilController extends Thread {
             return null;
         }
 
+
+        if (indexProyectil >= projectiles.size()) {
+            indexProyectil = 0;
+        }
+
         Projectil projectil = projectiles.get(indexProyectil);
         if (projectil.getPosition().z + (getSpeed() * -1) <= maxValueEje) {
             projectil = null;
@@ -39,9 +44,9 @@ public class ProjectilController extends Thread {
             indexProyectil++;
         }
 
-        if (indexProyectil >= projectiles.size()) {
-            indexProyectil = 0;
-        }
+//        if (indexProyectil >= projectiles.size()) {
+//            indexProyectil = 0;
+//        }
 
         return projectil;
     }

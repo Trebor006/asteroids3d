@@ -16,7 +16,10 @@ import com.mibu.asteroids3d.util.CameraUtil;
 public class Projectil extends Actor {
     public volatile boolean isVisible;
     private Vector3 position;
+    private Vector3 position2;
+    private Vector3 size;
     private ModelInstance model;
+    private ModelInstance model2;
 
     public Projectil(Vector3 position) {
 
@@ -28,6 +31,16 @@ public class Projectil extends Actor {
                 material, VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
         model = new ModelInstance(modelData);
         model.transform.setToTranslation(position);
+
+        position2 = new Vector3(position.x, position.y, position.z - 1f);
+
+//        ModelBuilder modelBuilder1 = new ModelBuilder();
+//        Material material1 = new Material(ColorAttribute.createDiffuse(Color.RED));
+//        Model modelData1 = modelBuilder.createSphere(size.x, size.y, size.z, 50, 50,
+//                material, VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
+//        model2 = new ModelInstance(modelData);
+//        model2.transform.setToTranslation(position2);
+
         isVisible = true;
     }
 
